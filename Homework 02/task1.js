@@ -28,16 +28,18 @@ function addStringRepresentation(objArray) {
 					str += prop + ': ' + obj[prop] + ', ';
 				}
 			}
-			return str.slice(0, -2) + '}';
+			return str === '{' ? str + '}' : str.slice(0, -2) + '}';
 		}
 	}
 }
 
 function task1() {
-	let objArray = [{a: 1, b: 1, c: 1}, {a: 1, b: 1}, {a: 2}, {a: 1, b: 2}];
+	//let objArray = [{a: 1, b: 1, c: 1}, {a: 1, b: 1}, {a: 2}, {a: 1, b: 2}];
+	let objArray = [{a: 1}, {b: 1}, {a: 2}, {}, {a: 1, b: 2}, {c: 1}, {a: 1, b: 1}];
 	addStringRepresentation(objArray);
 	alert(filterUniqueObj(objArray, ['a']));
 	alert(filterUniqueObj(objArray, ['b']));
+	alert(filterUniqueObj(objArray, ['c']));
 	alert(filterUniqueObj(objArray, ['a', 'b']));
-	alert(filterUniqueObj(objArray, ['f']));
+	//alert(filterUniqueObj(objArray, ['f']));
 }

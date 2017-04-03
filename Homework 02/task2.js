@@ -1,8 +1,9 @@
 "use strict";
 
 function getThirdMin(array) {
+	array = array.filter((value, index, arr) => arr.indexOf(value) === index);
 	if (array.length < 3) {
-		return undefined;
+		return null;
 	}
 
 	let [firstMin, secondMin, thirdMin] = array.slice(0, 3).sort();
