@@ -28,8 +28,10 @@ let lsModule = (function Module() {
 		add: (objArray) => {
 			if (Array.isArray(objArray)) {
 				for (let obj of objArray) {
-					for (let prop in obj) {
-						storage[prop] = JSON.stringify(obj[prop]);
+					if (obj instanceof Object) {
+						for (let prop in obj) {
+							storage[prop] = JSON.stringify(obj[prop]);
+						}
 					}
 				}
 			}
