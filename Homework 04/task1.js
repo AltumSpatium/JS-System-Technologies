@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function Kingdom(description) {
 	let kingdomName = description.kingdomName;
