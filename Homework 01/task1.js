@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 function input(params) {
 	let userInput;

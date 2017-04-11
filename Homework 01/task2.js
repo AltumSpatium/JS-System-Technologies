@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 function squareEquation(a, b, c) {
 	if (!arguments.length) {

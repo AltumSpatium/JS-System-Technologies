@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function getThirdMin(array) {
 	array = array.filter((value, index, arr) => arr.indexOf(value) === index);

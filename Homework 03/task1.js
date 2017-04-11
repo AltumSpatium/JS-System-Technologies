@@ -1,3 +1,5 @@
+'use strict';
+
 let lsModule = (function Module() {
 	let storage = localStorage;
 
@@ -52,7 +54,7 @@ function task1() {
 	lsModule.set('hello', 'Hello world!');
 	alert('Теперь попробуем достать её: ' + lsModule.get('hello'));
 
-	let objArray = [{author: 'Alex'}, {film: {name: '', year: 2007}}];
+	let objArray = [{author: 'Alex'}, {film: {name: 'Пекло', year: 2007}}];
 	alert('Добавим массив из объектов: [{author: "Alex"}, {film: {name: "Пекло", year: 2007}}]');
 	lsModule.add(objArray);
 	alert('Получим все объекты: ' + lsModule.getAll());

@@ -3,7 +3,7 @@
 function Kingdom(description) {
 	let kingdomName = description.kingdomName;
 	this._isAutotroph = description.isAutotroph;
-	this._category = description.isUnicellular ? 'одноклеточные' : 'многоклеточные';
+	this._isUnicellular = description.isUnicellular;
 
 	this.getKingdom = function() {
 		return kingdomName;
@@ -11,7 +11,7 @@ function Kingdom(description) {
 
 	this.getInfo = function() {
 		let info = 'Царство: ' + this.getKingdom() + '\n';
-		info += 'Категория: ' + this._category + '\n';
+		info += 'Категория: ' + (this._isUnicellular ? 'одноклеточные' : 'многоклеточные') + '\n';
 		info += 'Способ питания: ' + (this._isAutotroph ? 'автотрофный' : 'гетеротрофный') + '\n';
 		return info;
 	};

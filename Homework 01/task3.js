@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 function inputNumber(message) {
 	while (true) {

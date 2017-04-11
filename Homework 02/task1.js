@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function filterUniqueObj(objArray, filterArray) {
 	let checkedObjects = [];
