@@ -57,8 +57,8 @@
 
 	document.body.appendChild(form);
 
-	addUIInteraction($("#idBirthDate"), $().datepicker);
-	addUIInteraction($("#courseSlider"), $().slider, {
+	addUIWidget($("#idBirthDate"), $().datepicker);
+	addUIWidget($("#courseSlider"), $().slider, {
 		value: 1,
 		min: 1,
 		max: 5,
@@ -67,16 +67,15 @@
 			$("input[name=course]").val(ui.value);
 		}
 	});
-	addUIInteraction($("#idAbsentia"), $().checkboxradio, {icon: false});
-	addUIInteraction($("#idBtnSend"), $().button);
-	addUIInteraction($("#facultySelect"), $().selectmenu);
-	addUIInteraction($("#idUniversity"), $().autocomplete, {source: ['БГУИР', 'БГУ', 'БНТУ']});
-
+	addUIWidget($("#idAbsentia"), $().checkboxradio, {icon: false});
+	addUIWidget($("#idBtnSend"), $().button);
+	addUIWidget($("#facultySelect"), $().selectmenu);
+	addUIWidget($("#idUniversity"), $().autocomplete, {source: ['БГУИР', 'БГУ', 'БНТУ']});
 }
 
-function addUIInteraction(element, interaction, params) {
+function addUIWidget(element, widget, params) {
 	$(function() {
-		interaction.call(element, params);
+		widget.call(element, params);
 	});
 }
 
