@@ -1,0 +1,63 @@
+<div class="container field">
+	<div class="panel panel-primary">
+		<div class="panel-heading">{{title}}</div>
+		<div class="panel-body">
+			<form id="carForm" name="carForm">
+				<div class="form-group">
+					<label for="name">Модель:</label>
+					<input ng-model="car.name" required type="text" class="form-control" id="name">
+				</div>
+				<div class="form-group">
+					<label for="brand">Марка:</label>
+					<input ng-model="car.brand" required type="text" class="form-control" id="brand">
+				</div>
+				<div class="form-group">
+					<label for="year">Год выпуска:</label>
+					<input ng-model="car.year" required type="number" class="form-control" id="year">
+				</div>
+				<div class="form-group">
+					<label for="cost">Стоимость:</label>
+					<input ng-model="car.cost" min="0" required type="number" class="form-control" id="cost" name="cost">
+				</div>
+				<div class="form-group">
+					<label for="mileage">Пробег:</label>
+					<input ng-model="car.mileage" min="0" required type="number" class="form-control" id="mileage" name="mileage">
+				</div>
+				<div class="form-group">
+					<label class="radio">Тип топлива:</label>
+					<label class="radio-inline"><input required ng-model="car.fuelType" value="Бензин" type="radio" name="fuelType">Бензин</label>
+					<label class="radio-inline"><input ng-model="car.fuelType" value="Дизель" type="radio" name="fuelType">Дизель</label>
+					<label class="radio-inline"><input ng-model="car.fuelType" value="Электро" type="radio" name="fuelType">Электро</label>
+				</div>
+				<div class="form-group">
+					<label for="capacity">Объем двигателя:</label>
+					<input ng-model="car.engineCapacity" required min="0" max="65000" type="number" class="form-control" id="capacity">
+				</div>
+				<div class="form-group">
+					<label class="radio">Трансмиссия:</label>
+					<label class="radio-inline"><input required ng-model="car.transmission" value="Автомат" type="radio" name="transmission">Автомат</label>
+					<label class="radio-inline"><input ng-model="car.transmission" value="Механика" type="radio" name="transmission">Механика</label>
+				</div>
+				<div class="form-group">
+					<label class="btn btn-default btn-file">
+						Выбрать фото <input ng-model="car.image" id="imageFile" type="file" style="display: none;">
+					</label>
+				</div>
+				<div class="container">
+					<a href="#/admin" class="btn btn-warning">Отмена</a>
+					<button ng-click="submit($event, carForm)" class="btn btn-success">{{title}}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('#carForm').validate();
+	$.extend($.validator.messages, {
+		min: $.validator.format('Введите значение большее или равное {0}'),
+		max: $.validator.format('Введите значение меньшее или равное {0}'),
+		required: $.validator.format('Это поле обязательно для заполнения'),
+		number: $.validator.format('Введите валидное значение')
+	});
+</script>

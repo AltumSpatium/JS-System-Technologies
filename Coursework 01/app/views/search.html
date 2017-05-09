@@ -1,0 +1,124 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Результаты поиска
+				</div>
+				<div class="panel-body">
+					<div ng-if="found">
+						<div class="container">
+							<div class="panel panel-default car-sr" ng-repeat="car in cars">
+								<a href="#/car/{{car._id}}"><div class="panel-body car-sr-card">
+									<img src="{{car.image}}" width="150px" alt="">
+									<div class="car-sr-info">
+										<p class="car-name">{{car.brand}} {{car.name}} <span>{{car.cost}} BYN</span></p>
+										<p class="car-sr-inf">{{car.year}}, {{car.mileage}} км, {{car.fuelType}}, {{car.engineCapacity}} см<sup>3</sup>, {{car.transmission}}</p>
+									</div>
+								</div></a>
+							</div>
+						</div>
+					</div>
+					<div ng-if="!found">
+						<p>{{notFoundMsg}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Фильтр
+				</div>
+				<div class="panel-body">
+					<form action="" class="form-inline">
+						<label>Год:</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">От</span>
+									<input ng-model="filter.year_from" id="year_from" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">До</span>
+									<input ng-model="filter.year_to" id="year_to" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+						</div>
+						<br>
+						<label>Стоимость:</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">От</span>
+									<input ng-model="filter.cost_from" id="cost_from" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">До</span>
+									<input ng-model="filter.cost_to" id="cost_to" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+						</div>
+						<br>
+						<label>Пробег (км):</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">От</span>
+									<input ng-model="filter.mileage_from" id="mileage_from" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">До</span>
+									<input ng-model="filter.mileage_to" id="mileage_to" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+						</div>
+						<br>
+						<label>Объем двигателя (см<sup>3</sup>):</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">От</span>
+									<input ng-model="filter.capacity_from" id="capacity_from" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">До</span>
+									<input ng-model="filter.capacity_to" id="capacity_to" type="number" class="form-control inp-sm">
+								</div>
+							</div>
+						</div>
+						<br>
+						<label>Тип топлива:</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<label class="radio-inline"><input ng-model="filter.fuelType" value="Бензин" type="radio" name="fuelType">Бензин</label>
+								<label class="radio-inline"><input ng-model="filter.fuelType" value="Дизель" type="radio" name="fuelType">Дизель</label>
+								<label class="radio-inline"><input ng-model="filter.fuelType" value="Электро" type="radio" name="fuelType">Электро</label>
+							</div>
+						</div>
+						<br>
+						<label>Трансмиссия:</label><br>
+						<div class="row" style="text-align: center;">
+							<div class="form-group">
+								<label class="radio-inline"><input ng-model="filter.transmission" value="Автомат" type="radio" name="transmission">Автомат</label>
+								<label class="radio-inline"><input ng-model="filter.transmission" value="Механика" type="radio" name="transmission">Механика</label>
+							</div>
+						</div>
+						<br>
+						<div class="row" style="text-align: center;">
+							<button ng-click="search($event)" class="btn btn-primary">Показать</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

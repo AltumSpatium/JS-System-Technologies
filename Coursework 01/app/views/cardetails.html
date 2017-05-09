@@ -1,0 +1,43 @@
+<div ng-if="loaded">
+	<div class="car-card large-card">
+		<img src="{{car.image}}" width="550px" height="395px" alt="">
+		<div class="car-info full-info">
+			<p class="full-name">{{car.brand}} {{car.name}}</p>
+			<div class="car-info-params">
+				<p>Год выпуска</p>
+				<hr>
+				<p>Пробег</p>
+				<hr>
+				<p>Тип топлива</p>
+				<hr>
+				<p>Объем двигателя</p>
+				<hr>
+				<p>Трансмиссия</p>
+				<hr>
+				<p>Стоимость</p>
+			</div>
+			<div class="car-info-values">
+				<p>{{car.year}}</p>
+				<hr>
+				<p>{{car.mileage}} км</p>
+				<hr>
+				<p>{{car.fuelType}}</p>
+				<hr>
+				<p>{{car.engineCapacity}} см<sup>3</sup></p>
+				<hr>
+				<p>{{car.transmission}}</p>
+				<hr>
+				<p>
+					<ul class="cost-list">
+						<li>{{car.cost}} BYN</li>
+						<li>{{convertCurrency(car.cost, 'dollar')}}$</li>
+						<li>{{convertCurrency(car.cost, 'euro')}}&#8364;</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-if="!loaded">
+	<div ng-bind-html="error"></div>
+</div>

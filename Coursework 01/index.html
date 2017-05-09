@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="autoApp">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="app/css/style.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AutoApp</a>
+				</div>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/">Home</a></li>
+						<li><a href="#/admin">Admin</a></li>
+					</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div class="main">
+		<div ng-view></div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<script src="app/js/lib/angular.min.js"></script>
+	<script src="app/js/lib/angular-route.min.js"></script>
+	<script src="app/js/app.js"></script>
+
+	<script src="app/js/controllers/mainController.js"></script>
+	<script src="app/js/controllers/searchController.js"></script>
+	<script src="app/js/controllers/carController.js"></script>
+	<script src="app/js/controllers/adminController.js"></script>
+	<script src="app/js/controllers/createController.js"></script>
+	<script src="app/js/controllers/editController.js"></script>
+</body>
+</html>

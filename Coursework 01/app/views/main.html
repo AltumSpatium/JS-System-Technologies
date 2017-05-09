@@ -1,0 +1,28 @@
+<link rel="import" id="link" href="app/components/search-input.html">
+
+<div ng-keypress="search($event)" class="search-container">
+	<search-input value=""></search-input>
+</div>
+
+<div class="car-grid">
+	<table>
+		<tbody>
+			<tr ng-repeat="row in cars">
+				<td ng-repeat="car in row">
+					<a href="#/car/{{car._id}}"><div class="car-card small-card">
+						<img src="{{car.image}}" width="200px" height="150px" alt="">
+						<p class="car-name"><b>{{car.brand}} {{car.name}}</b></p>
+						<div class="car-info">
+							<p id="car-year"><i>{{car.year}}<i></p>
+						</div>
+						<div class="car-cost">
+							<p>{{car.cost}} BYN</p>
+							<p>{{convertCurrency(car.cost, 'dollar')}}$</p>
+							<p>{{convertCurrency(car.cost, 'euro')}}&#8364;</p>
+						</div>
+					</div></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

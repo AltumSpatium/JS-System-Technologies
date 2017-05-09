@@ -1,0 +1,209 @@
+.search-container {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+search-input {
+	font-size: 3.5vw;
+	font-variant: small-caps;
+	margin: auto;
+}
+
+search-input::shadow input {
+	width: 35%;
+	padding: 10px 2px;
+	vertical-align: middle;
+	font-size: 1.7vw;
+	border: 1px solid black;
+}
+
+.car-grid table {
+	margin: auto;
+}
+
+.car-grid a {
+	text-decoration: none;
+}
+
+.car-card {
+	margin: 5px;
+	background-color: rgba(219, 219, 219, 0.5);
+	box-shadow: 2px 3px 3px -1px rgba(107,104,107,0.9);
+}
+
+.small-card {
+	cursor: pointer;
+	padding: 3px;
+	width: 205px;
+	height: 240px;
+	text-align: center;
+}
+
+.small-card:hover {
+	background-color: rgba(190, 190, 190, 0.5);
+	transition: 0.1s ease-in-out;
+}
+
+.car-card p {
+	margin: 0px;
+	color: black;
+}
+
+.car-name {
+	font-size: 18px;
+	font-family: sans-serif;
+	text-align: left;
+}
+
+.car-info {
+	float: left;
+	text-align: left;
+}
+
+.car-cost {
+	float: right;
+	text-align: right;
+}
+
+.error-not-found {
+	width: 500px;
+	height: 150px;
+	background-color: rgba(200, 200, 200, 0.25);
+	border: 3px dashed red;
+	color: red;
+	margin: auto;
+	text-align: center;
+	padding: 40px;
+	font-variant: small-caps;
+	font-size: 40px;
+}
+
+.large-card {
+	width: 900px;
+	height: 400px;
+	margin: auto;
+	padding: 3px;
+}
+
+.large-card img {
+	float: right;
+}
+
+.full-info {
+	width: 36%;
+}
+
+.full-info p {
+	font-size: 16px;
+	font-family: sans-serif;
+	margin: 6px 5px;
+}
+
+.car-info-params {
+	float: left;
+}
+
+.car-info-params p {
+	color: gray;
+}
+
+.car-info-values {
+	float: right;
+}
+
+.car-info-values p {
+	font-weight: bold;
+	color: #686868;
+}
+
+.car-info-values ul {
+	margin-left: -35px;
+}
+
+.car-info-values ul li {
+	font-weight: bold;
+	color: #686868;
+	font-size: 16px;
+	list-style-type: none;
+}
+
+hr {
+	border-color: gray;
+	margin: 5px;
+	width: 200px;
+}
+
+.car-info-values hr {
+	width: 90px;
+}
+
+.full-name {
+	font-size: 25px !important;
+	font-weight: bold ;
+	color: #686868 !important;
+}
+
+.car-table table {
+	margin: auto;
+	width: 1000px;
+}
+
+.admin-filter {
+	text-align: center;
+}
+
+.admin-filter input {
+	width: 400px;
+}
+
+.no-border {
+	border: none !important;
+	width: 125px;
+	height: 80px;
+}
+
+.btn {
+	margin: 1px;
+}
+
+.btn-add {
+	margin-left: -20px;
+}
+
+.field {
+	width: 800px;
+}
+
+.inp-sm {
+	width: 100px !important;
+}
+
+.car-sr {
+	width: 60% !important;
+}
+
+.car-sr a {
+	color: black;
+}
+
+.car-sr-card:hover {
+	transition: 0.1s ease-in-out;
+	background-color: rgba(200, 200, 200, 0.25);
+}
+
+.car-sr img {
+	float: left;
+}
+
+.car-sr-info {
+	float: left;
+	margin: 5px;
+}
+
+.car-sr-info span {
+	font-size: 15px;
+}
+
+.car-sr-inf {
+	font-style: italic;
+}

@@ -1,0 +1,47 @@
+<template id="tmpl">
+	<style>
+		:host {
+			display: block;
+		}
+	</style>
+	<div class="container">
+		<p class="searchBlock">Поиск: <input id="searchField" type="text" name=""></p>
+	</div>
+</template>
+
+<script>
+	let localDocument = document.currentScript.ownerDocument;
+	let tmpl = localDocument.getElementById('tmpl');
+
+	let SearchProto = Object.create(HTMLElement.prototype);
+
+	SearchProto.createdCallback = function() {
+		let value = this.hasAttribute('value') ?
+			this.getAttribute('value') : '';
+
+		tmpl.content.querySelector('input').value = value;
+
+		let root = this.createShadowRoot();
+		root.appendChild(tmpl.content.cloneNode(true));
+	};
+
+	SearchProto.attributeChangedCallback = function(name, oldVal, newVal) {
+		if (name == 'value') {
+			this.shadowRoot.querySelector('input').value = newVal;
+		}
+	};
+
+	Object.defineProperty(SearchProto, 'value', {
+		get: function() {
+			return this.shadowRoot.querySelector('input').value;
+		},
+
+		set: function(value) {
+			this.shadowRoot.querySelector('input').value = value;
+		}
+	});
+
+	document.registerElement('search-input', {
+		prototype: SearchProto
+	});
+</script>

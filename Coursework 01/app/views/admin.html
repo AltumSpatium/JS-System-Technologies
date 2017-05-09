@@ -1,0 +1,56 @@
+<div class="container input-group col-xs-4">
+	<label for="searchInput">Поиск:</label>
+	<input id="searchInput" type="text" ng-model="searchText" ng-change="search(searchText)" class="form-control input-sm">
+</div>
+
+<div class="container text-right btn-add">
+	<a id="btnAdd" class="btn btn-success btn-md" href="#/admin/create">Добавить</a>
+</div>
+
+<div class="car-table">
+	<table class="table" style="empty-cells: show;">
+		<thead>
+			<tr>
+				<th style="display: none;" class="no-border"></th>
+				<th>Изображение</th>
+				<th>Модель</th>
+				<th>Марка</th>
+				<th>Год</th>
+				<th>Пробег</th>
+				<th>Тип топлива</th>
+				<th>Объем двигателя</th>
+				<th>Трансмиссия</th>
+				<th>Стоимость</th>
+				<th class="no-border"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="car in cars">
+				<td style="display: none;" class="no-border">{{car._id}}</td>
+				<td><img src="{{car.image}}" width="80px" height="60px" alt=""></td>
+				<td><p>{{car.name}}</p></td>
+				<td><p>{{car.brand}}</p></td>
+				<td><p>{{car.year}}</p></td>
+				<td><p>{{car.mileage}}</p></td>
+				<td><p>{{car.fuelType}}</p></td>
+				<td><p>{{car.engineCapacity}}</p></td>
+				<td><p>{{car.transmission}}</p></td>
+				<td><p>{{car.cost}}</p></td>
+					<td class="no-border">
+						<button style="display: none;" ng-click="editCar($event)" class="btnEdit btn btn-primary btn-sm">Редактировать</button><br>
+						<button style="display: none;" ng-click="deleteCar($event)" class="btnDelete btn btn-danger btn-sm">Удалить</button>
+					</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on('mouseenter', 'tr', function() {
+			$(this).find(':button').show();
+		}).on('mouseleave', 'tr', function() {
+			$(this).find(':button').hide();
+		});
+	});
+</script>
