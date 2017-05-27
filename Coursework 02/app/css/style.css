@@ -1,0 +1,264 @@
+body {
+	background-color: #e3f2fd;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-main {
+	background-color: #2196f3;
+	position: fixed;
+	width: 100%;
+	z-index: 99;
+	border-radius: 0;
+	border: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.navbar-main * {
+	color: white !important;
+}
+
+.search-input {
+	margin: 80px 0 20px;
+	text-align: center;
+}
+
+.search-input p span {
+	font-variant: small-caps;
+	vertical-align: top;
+	font-size: 2vw;
+}
+
+.search-input input {
+	width: 400px;
+	border: none;
+	padding: 5px;
+	border-bottom: solid 2px #c9c9c9;
+	transition: border 0.3s;
+	vertical-align: middle;
+	font-size: 1.7vw;
+}
+
+.search-input input:focus {
+	border-bottom: solid 2px #2196f3;
+	outline: none;
+}
+
+.search-input button {
+	vertical-align: middle;
+	font-size: 1.8vw;
+	margin-left: 5px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+	border-width: 0;
+	background-color: #0288d1;
+	color: white;
+	transition: background-color .3s;
+}
+
+.search-input button:hover {
+	background-color: #0277bd;
+}
+
+.search-input button:focus {
+	outline: none;
+}
+
+.search-input button:active {
+	transform: translateY(1px);
+}
+
+.nav li a:hover {
+	background-color: #1e88e5 !important;
+	transition: 0.2s ease-in-out;
+}
+
+#card-container {
+	min-width: 1200px !important;
+}
+
+.card-wrapper {
+	height: 60px;
+	margin: 10px 60px;
+}
+
+.card {
+	background-color: rgba(3, 155, 229, 0.8);
+	border-color: rgba(3, 155, 229, 0.3);
+	float: left;
+	color: white;
+	margin: 5px;
+	width: 200px;
+	height: 260px;
+	border-width: 1px;
+	border-radius: 0;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.card:hover {
+	background-color: rgba(3, 155, 229, 1);
+	border-color: rgba(3, 155, 229, 0.3);
+	color: white;
+	transition: 0.1s ease-in-out;
+}
+
+.card:active {
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);	
+	transform: translateY(3px);
+}
+
+.card-info {
+	float: right;
+	text-align: right;
+}
+
+.card-info p {
+	margin: 0;
+}
+
+.card-info-name {
+	float: left;
+	margin: 5px 0 0 0;
+}
+
+.card-info-year {
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.car-card {
+	padding-top: 50px;
+}
+
+.large-card {
+	margin: auto;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    height: 35%;
+    width: 1000px;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    transition: all 400ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    font-size: 16px;
+    background-color: rgba(3, 155, 229, 0.8);
+    color: white;
+}
+
+.full-name {
+	margin: 5px;
+	margin-left: 8px;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.large-card img {
+	float: right;
+}
+
+.car-info-params {
+	padding: 3px;
+	float: left;
+	width: 22%;
+}
+
+.car-info-values {
+	float: right;
+	width: 20%;
+	padding: 3px 7px 3px 0;
+	text-align: right;
+}
+
+.error-not-found {
+	width: 500px;
+	height: 150px;
+	background-color: rgba(200, 200, 200, 0.25);
+	border: 3px dashed red;
+	color: red;
+	margin: auto;
+	text-align: center;
+	padding: 40px;
+	font-variant: small-caps;
+	font-size: 40px;
+}
+
+.search-container {
+	padding-top: 60px;
+}
+
+#btnFilter button {
+	background-color: #4594d8;
+	color: white;
+	border-radius: 0;
+	border: none;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);	
+}
+
+#btnFilter button:hover {
+	background-color: #4574d8;
+	transition: 0.2s ease-in-out;
+}
+
+#btnFilter button:focus {
+	outline: none;
+}
+
+#btnFilter button:active {
+	transform: translateY(1px);
+}
+
+.panel-primary .panel-heading {
+	background-color: #1976d2 !important;
+}
+
+.panel-body {
+	background-color: rgba(25, 118, 210, 0.08);
+}
+
+.car-sr {
+	margin: 15px auto;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    height: 150px;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    transition: all 400ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    font-size: 16px;
+    background-color: rgba(3, 155, 229, 0.8);
+    color: white;
+}
+
+.car-sr-card {
+	background-color: #2196f3;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.car-sr-card img {
+	float: left;
+	width: 200px;
+	height: 150px;
+}
+
+.car-sr-info {
+	float: left;
+	padding: 10px;
+}
+
+.car-name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.car-name span {
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.car-sr-card:hover {
+	cursor: pointer;
+	background-color: #2186f3;
+}
+
+.car-sr:active {
+	transform: translateY(2px);
+}

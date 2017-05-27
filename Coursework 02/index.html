@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html ng-app="autoApp">
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="app/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.common-bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.bootstrap.mobile.min.css">
+	<link rel="stylesheet" href="app/css/style.css">
+</head>
+<body>
+	<div id="app"></div>
+
+	<!-- Main layout -->
+	<script id="mainLayout" type="text/x-kendo-template">
+		<header>
+			<nav class="navbar navbar-default navbar-main">
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#/">AutoApp</a>
+					</div>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#/">Home</a></li>
+							<li><a href="#/admin">Admin</a></li>
+						</ul>
+				</div>
+			</nav>
+		</header>
+		<div id="content"></div>
+	</script>
+
+	<!-- Main page -->
+	<script id="cardsView" type="text/x-kendo-template">
+		<div id="card-container" class="container">
+			<div class="search-input">
+				<p><span>Поиск: </span> <input id="searchField"
+											   data-value-update="keyup"
+											   data-bind="value: searchText, events: { keypress: searchKeypress }" >
+					<button data-bind="events: { click: searchClick }">Искать</button></p>
+			</div>
+			<div data-template="card-row-template" data-bind="source: cars"></div>
+		</div>
+	</script>
+
+	<script id="card-row-template" type="text/x-kendo-template">
+		<div data-template="card-template" data-bind="source: cols" class="card-wrapper"></div>
+	</script>
+
+	<script id="card-template" type="text/x-kendo-template">
+		<div class="card btn" data-bind="events: { click: displayCar }">
+			<img src="#: image #" width="180px" height="120px" alt="">
+			<p class="card-info-name"><strong>#: brand # #: name #</strong></p>
+				<div class="clear"></div>
+				<p class="card-info-year" data-bind="text: year"></p>
+				<div class="card-info">
+					<p><span data-bind="text: mileage"></span> км</p>
+					<p data-bind="text: fuelType"></p>
+					<p><span data-bind="text: engineCapacity"></span> см<sup>3</sup></p>
+					<p data-bind="text: transmission"></p>
+					<p><span data-bind="text: cost"></span>$</p>
+				</div>
+		</div>
+	</script>
+
+	<!-- Car details page -->
+	<script id="carDetailsView" type="text/x-kendo-template">
+		<div class="car-card" data-bind="source: car, invisible: isNotFound" data-template="car-card-template"></div>
+		<div data-bind="visible: isNotFound, html: errorMsg" style="padding-top: 80px;"></div>
+	</script>
+
+	<script id="car-card-template" type="text/x-kendo-template">
+		<div class="car-card">
+			<div class="large-card">
+				<img src="#: image #" width="550px" height="395px" alt="">
+				<div class="car-info full-info">
+					<p class="full-name">#: brand # #: name #</p>
+					<div class="car-info-params">
+						<p>Год выпуска</p>
+						<hr>
+						<p>Пробег</p>
+						<hr>
+						<p>Тип топлива</p>
+						<hr>
+						<p>Объем двигателя</p>
+						<hr>
+						<p>Трансмиссия</p>
+						<hr>
+						<p>Стоимость</p>
+					</div>
+					<div class="car-info-values">
+						<p data-bind="text: year"></p>
+						<hr>
+						<p><span data-bind="text: mileage"></span> км</p>
+						<hr>
+						<p data-bind="text: fuelType"></p>
+						<hr>
+						<p><span data-bind="text: engineCapacity"></span> см<sup>3</sup></p>
+						<hr>
+						<p data-bind="text: transmission"></p>
+						<hr>
+						<p>$<span data-bind="text: cost"></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<!-- Search results page -->
+	<script id="searchView" type="text/x-kendo-template">
+		<div class="container search-container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Результаты поиска
+						</div>
+						<div class="panel-body">
+							<div data-template="search-result-template" data-bind="source: searchResults"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Фильтр
+						</div>
+						<div class="panel-body">
+							<form action="" class="form-inline">
+
+								<!-- Brand filtering -->
+								<label>Марка:</label>
+								<div class="row" style="text-align: center;">
+									<input id="brandInput"
+										   data-role="autocomplete"
+										   data-bind="value: selectedBrand,
+										   			  source: brands,
+										   			  events: {
+										   			  	change: onChange
+										   			  }"/>
+								</div>
+
+								<!-- Model filtering -->
+								<label>Модель:</label>
+								<div class="row" style="text-align: center;">
+									<div id="modelInput">
+										<input id="modelInpField"
+											   data-role="autocomplete"
+											   data-bind="value: selectedModel,
+											   			  source: models"/>
+									</div>
+								</div>
+
+								<!-- Year filtering -->
+								<label>Год:</label>
+								<div class="row" style="text-align: center;">
+									<div id="yearInput">
+										<div data-role="rangeslider"
+											 data-min="1970"
+											 data-max="2017"
+											 data-small-step="1"
+											 data-large-step="10"
+											 data-bind="value: selectedYear"
+											 data-tooltip="{ format: '{0}' }">
+											<input/>
+											<input/>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Cost filtering -->
+								<label>Стоимость:</label>
+								<div class="row" style="text-align: center;">
+									<div id="costInput">
+										<div data-role="rangeslider"
+											 data-min="0"
+											 data-max="100000"
+											 data-bind="value: cost,
+											 			events: { change: onChangeCost }"
+											 data-tooltip="{ format: '{0:c}' }">
+											<input/>
+											<input/>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="c0"
+													   data-min="0"
+													   data-max="100000"
+													   data-bind="value: costFrom,
+													   			  events: {
+													   			  	change: onChangeCost,
+													   			  	spin: onChangeCost
+													   			  }"
+													   data-placeholder="От..."
+													   style="width: 105px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="c0"
+													   data-min="0"
+													   data-max="100000"
+													   data-bind="value: costTo,
+													   			  events: {
+													   			  	change: onChangeCost,
+													   			  	spin: onChangeCost
+													   			  }"
+													   data-placeholder="До..."
+													   style="width: 105px;" />
+											</div>
+										</div>									
+									</div>
+								</div><br>
+
+								<!-- Mileage filtering -->
+								<label>Пробег (км):</label>
+								<div class="row" style="text-align: center;">
+									<div id="mileageInput">
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-bind="value: mileageFrom"
+													   data-placeholder="От..."
+													   style="width: 150px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-bind="value: mileageTo"
+													   data-placeholder="До..."
+													   style="width: 150px;" />
+											</div>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Engine capacity filtering -->
+								<label>Объем двигателя (см<sup>3</sup>):</label>
+								<div class="row" style="text-align: center;">
+									<div id="capacityInput">
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: capacityFrom"
+													   data-placeholder="От..."
+													   style="width: 150px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: capacityTo"
+													   data-placeholder="До..."
+													   style="width: 150px;" />
+											</div>
+										</div>
+									</div>
+								</div><br>
+								
+								<!-- Fuel type filtering -->
+								<label>Тип топлива:</label><br>
+								<div class="row" style="text-align: center;">
+									<div id="fuelTypeInput">
+										<div class="form-group" style="text-align: left;">
+											<input id="fuelGasoline" type="radio" name="fuelType" class="k-radio" value="Бензин" data-bind="checked: selectedFuelType">
+											<label for="fuelGasoline" class="k-radio-label"> Бензин</label><br>
+
+											<input id="fuelDiesel" type="radio" name="fuelType" class="k-radio" value="Дизель" data-bind="checked: selectedFuelType">
+											<label for="fuelDiesel" class="k-radio-label"> Дизель</label><br>
+
+											<input id="fuelElectro" type="radio" name="fuelType" class="k-radio" value="Электро" data-bind="checked: selectedFuelType">
+											<label for="fuelElectro" class="k-radio-label"> Электро</label>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Transmission filtering -->
+								<label>Трансмиссия:</label><br>
+								<div class="row" style="text-align: center;">
+									<div id="transmissionInput">
+										<div class="form-group">
+											<p><b>Механика</b> <input type="checkbox"
+												   data-role="kendo.mobile.ui.Switch"
+												   data-bind="checked: isChecked"
+												   data-on-label="А"
+												   data-off-label="М" /> <b>Автомат</b></p>
+										</div>
+									</div>
+								</div>
+
+								<div class="row" style="text-align: center;">
+									<div id="btnFilter">
+										<button data-role="button"
+												data-bind="events: { click: applyFilter }">Показать</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script id="search-result-template" type="text/x-kendo-template">
+		<div class="car-sr" data-bind="events: { click: displayCar }">
+			<div class="car-sr-card">
+				<img src="#: image #" width="150px" alt="">
+				<div class="car-sr-info">
+					<p class="car-name">#: brand # #: name # <span>$#: cost #</span></p>
+					<p class="car-sr-inf">#: year #, #: mileage # км, #: fuelType #, #: engineCapacity # см<sup>3</sup>, #: transmission #</p>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</script>
+
+	<script src="app/js/lib/kendoUI/jquery.min.js"></script>	
+	<script src="app/js/lib/kendoUI/kendo.all.min.js"></script>
+	<script src="app/js/router.js"></script>
+</body>
+</html>
