@@ -22,18 +22,14 @@ router.route('/', function() {
 		},
 		searchKeypress: function(e) {
 			if (e.keyCode == 13) {
-				let text = cardsViewmodel.get('searchText');
-				if (text) {
-					router.navigate('/search/' + text);
-				}
+				let text = cardsViewmodel.get('searchText') || '';
+				router.navigate('/search/' + text);
 			}
 		},
 		searchClick: function(e) {
 			e.preventDefault();
-			let text = cardsViewmodel.get('searchText');
-			if (text) {
-				router.navigate('/search/' + text);
-			}
+			let text = cardsViewmodel.get('searchText') || '';
+			router.navigate('/search/' + text);
 		},
 	});
 

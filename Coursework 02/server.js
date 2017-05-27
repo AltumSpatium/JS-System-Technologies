@@ -77,7 +77,6 @@ app.route('/api/car/:id')
 				console.log(err);
 				res.status(404).sendFile(__dirname + '/app/views/notfound.html');
 			} else {
-
 				res.send(car);
 			}
 		});
@@ -125,8 +124,23 @@ app.get('/api/admin', function(req, res) {
 	});
 });
 
-app.get('/api/search/:text', function(req, res) {
-	let query = Car.find({$text : {$search: req.params.text}});
+app.get('/api/search/:text*?', function(req, res) {
+	let query;
+	let brand = req.query.brand;
+	let model = req.query.model;
+
+	if (brand || model) {
+		query = Car.find({});
+
+		if (brand)
+			query = query.where('brand').equals(brand);
+		if (model)
+			query = query.where('name').equals(model);
+	} else {
+		if (req.params.text)
+			query = Car.find({$text : {$search: req.params.text}});
+		else query = Car.find({});
+	}
 
 	if (req.query.yearFrom)
 		query = query.where('year').gt(parseInt(req.query.yearFrom) - 1);
@@ -160,7 +174,6 @@ app.get('/api/search/:text', function(req, res) {
 			console.log('error');
 			res.sendStatus(400);
 		} else {
-			console.log('found');
 			res.send(cars);
 		}
 	});
