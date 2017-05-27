@@ -73,12 +73,45 @@ router.route('/car/:id', function(id) {
 });
 
 router.route('/search/(:text)', function(text, params) {
+	function buildQuery(text, filterParams) {
+		text = text || '';
+		let query = text && filterParams.brand ? '?' : text + '?';
+
+		for (let param in filterParams) {
+			if (param !== '_back' && filterParams[param]) {
+				query += param + '=' + filterParams[param] + '&';
+			}
+		}
+
+		return query.slice(0, -1);
+	}
+
 	let searchViewmodel = kendo.observable({
 		searchResults: new kendo.data.DataSource({
 			transport: {
 				read: function(options) {
+					searchViewmodel.set('selectedBrand', params.brand || null);
+					searchViewmodel.set('selectedModel', params.model || null);
+					
+					searchViewmodel.set('selectedYear', [Number(params.yearFrom) || 1970, Number(params.yearTo) || 2017]);
+
+					searchViewmodel.set('costFrom', params.costFrom || null);
+					searchViewmodel.set('costTo', params.costTo || null);
+
+					searchViewmodel.set('mileageFrom', params.mileageFrom || null);
+					searchViewmodel.set('mileageTo', params.mileageTo || null);
+
+					searchViewmodel.set('capacityFrom', params.capacityFrom || null);
+					searchViewmodel.set('capacityTo', params.capacityTo || null);
+
+					searchViewmodel.set('selectedFuelType', params.fuelType || null);
+
+					let transmission = params.transmission || null;
+					if (transmission) transmission = transmission === 'Автомат' ? true : false;
+					searchViewmodel.set('isChecked', transmission);
+
 					$.ajax({
-						url: '/api/search/' + text,
+						url: '/api/search/' + buildQuery(text, params),
 						success: function(response) {
 							options.success(response);
 						},
@@ -121,7 +154,7 @@ router.route('/search/(:text)', function(text, params) {
 			}
 		}),
 
-		selectedYear: [null, null],
+		selectedYear: null,
 
 		costFrom: null,
 		costTo: null,
@@ -146,23 +179,32 @@ router.route('/search/(:text)', function(text, params) {
 
 		selectedFuelType: null,
 
-		isChecked: true,
+		isChecked: null,
 
 		applyFilter: function(event) {
 			event.preventDefault();
 
-			let brand = this.get("selectedBrand");
-			let model = this.get("selectedModel");
-			let [yearFrom, yearTo] = this.get("selectedYear");
-			let [costFrom, costTo] = [this.get("costFrom"), this.get("costTo")];
-			let [mileageFrom, mileageTo] = [this.get("mileageFrom"), this.get("mileageTo")];
-			let [capacityFrom, capacityTo] = [this.get("capacityFrom"), this.get("capacityTo")];
-			let fuelType = this.get("selectedFuelType");
-			let transmission = this.get("isChecked") ? "Автомат" : "Механика";
+			let transmission = this.get('isChecked');
+			if (transmission === true) transmission = 'Автомат';
+			else if (transmission === false) transmission = 'Механика';
+			else transmission = null;
 
-			if (text && brand) text = "";
+			let filterParams = {
+				brand: this.get("selectedBrand"),
+				model: this.get("selectedModel"),
+				yearFrom: this.get("selectedYear")[0],
+				yearTo: this.get("selectedYear")[1],
+				costFrom: this.get("costFrom"),
+				costTo: this.get("costTo"),
+				mileageFrom: this.get("mileageFrom"),
+				mileageTo: this.get("mileageTo"),
+				capacityFrom: this.get("capacityFrom"),
+				capacityTo: this.get("capacityTo"),
+				fuelType: this.get("selectedFuelType"),
+				transmission: transmission
+			}
 
-			router.navigate('/search/' + text);
+			router.navigate('/search/' + buildQuery(text, filterParams));
 		}
 	});
 

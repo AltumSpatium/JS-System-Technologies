@@ -128,25 +128,25 @@ app.get('/api/admin', function(req, res) {
 app.get('/api/search/:text', function(req, res) {
 	let query = Car.find({$text : {$search: req.params.text}});
 
-	if (req.query.year_from)
-		query = query.where('year').gt(parseInt(req.query.year_from) - 1);
-	if (req.query.year_to)
-		query = query.where('year').lt(parseInt(req.query.year_to) + 1);
+	if (req.query.yearFrom)
+		query = query.where('year').gt(parseInt(req.query.yearFrom) - 1);
+	if (req.query.yearTo)
+		query = query.where('year').lt(parseInt(req.query.yearTo) + 1);
 
-	if (req.query.cost_from)
-		query = query.where('cost').gt(parseInt(req.query.cost_from) - 1);
-	if (req.query.cost_to)
-		query = query.where('cost').lt(parseInt(req.query.cost_to) + 1);
+	if (req.query.costFrom)
+		query = query.where('cost').gt(parseInt(req.query.costFrom) - 1);
+	if (req.query.costTo)
+		query = query.where('cost').lt(parseInt(req.query.costTo) + 1);
 
-	if (req.query.mileage_from)
-		query = query.where('mileage').gt(parseInt(req.query.mileage_from) - 1);
-	if (req.query.mileage_to)
-		query = query.where('mileage').lt(parseInt(req.query.mileage_to) + 1);
+	if (req.query.mileageFrom)
+		query = query.where('mileage').gt(parseInt(req.query.mileageFrom) - 1);
+	if (req.query.mileageTo)
+		query = query.where('mileage').lt(parseInt(req.query.mileageTo) + 1);
 
-	if (req.query.capacity_from)
-		query = query.where('engineCapacity').gt(parseInt(req.query.capacity_from) - 1);
-	if (req.query.capacity_to)
-		query = query.where('engineCapacity').lt(parseInt(req.query.capacity_to) + 1);
+	if (req.query.capacityFrom)
+		query = query.where('engineCapacity').gt(parseInt(req.query.capacityFrom) - 1);
+	if (req.query.capacityTo)
+		query = query.where('engineCapacity').lt(parseInt(req.query.capacityTo) + 1);
 
 	if (req.query.fuelType)
 		query = query.where('fuelType').equals(req.query.fuelType);
