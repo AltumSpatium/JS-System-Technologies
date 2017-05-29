@@ -208,6 +208,231 @@ router.route('/search/(:text)', function(text, params) {
 	mainLayout.showIn('#content', searchView);
 });
 
+function fuelTypeDropDownListEditor(container, options) {
+	$('<input required data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+          	dataSource: ['Бензин', 'Дизель', 'Электро'],
+           	filter: "contains",
+           	minLength: 1
+    });
+}
+
+function transmissionDropDownListEditor(container, options) {
+	$('<input required data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({
+          	dataSource: ['Автомат', 'Механика'],
+           	filter: "contains",
+           	minLength: 1
+    });
+}
+
+function imageUploadEditor(container, options) {
+	$('<input type="file"/>')
+        .appendTo(container)
+        .kendoUpload({
+        	async: {
+        		saveUrl: '/api/admin',
+        		autoUpload: true
+        	},
+        	success: function(e) {
+        		let file = e.files[0].rawFile;
+        		let fileReader = new FileReader();
+
+        		fileReader.onloadend = function(e) {
+        			let data = e.target.result;
+        			options.model.image = data;
+        			let id = options.model.id;
+        			
+        			if (id) {
+        				$.ajax({
+        					url: '/api/car/' + id,
+        					method: 'PUT',
+        					data: options.model.toJSON(),
+        					success(response) {
+
+        					}
+        				});
+        			} else {
+        				$.ajax({
+        					url: '/api/cars',
+        					method: 'POST',
+        					data: options.model.toJSON()
+        				});
+        			}
+        		}
+
+        		fileReader.readAsDataURL(file);
+        	}
+    });
+}
+
+router.route('/admin', function() {
+	function init() {
+		$('#carGrid').kendoGrid({
+			columns: [
+				{ field: "name", title: "Модель" },
+				{ field: "brand", title: "Марка" },
+				{ field: "year", title: "Год выпуска" },
+				{ field: "mileage", title: "Пробег" },
+				{ 
+					field: "fuelType",
+					title: "Тип топлива",
+					editor: fuelTypeDropDownListEditor
+				},
+				{ field: "engineCapacity", title: "Объем двигателя" },
+				{
+					field: "transmission",
+					title: "Трансмиссия",
+					editor: transmissionDropDownListEditor
+				},
+				{
+					field: "image",
+					title: "Фото",
+					width: 145,
+					sortable: false,
+					filterable: false,
+				  	template: kendo.template($("#img-template").html()),
+				  	editor: imageUploadEditor
+				},
+				{ field: "cost", title: "Цена", format: '{0:c0}' },
+				{ command: ['destroy'], title: '&nbsp', width: '170px'}
+			],
+			dataSource: {
+				transport: {
+					read: function(options) {
+						$.ajax({
+							url: '/api/admin/',
+							success: function(response) {
+								options.success(response);
+							}
+						});			
+					},
+					update: function(options) {
+						let id = options.data._id;
+
+						$.ajax({
+							url: '/api/car/' + id,
+							method: 'PUT',
+							data: options.data,
+							success: function(response) {
+								options.success();
+							}
+						});
+					},
+					destroy: function(options) {
+						let id = options.data._id;
+
+						$.ajax({
+							url: 'api/car/' + id,
+							method: 'DELETE',
+							success: function(response) {
+								options.success();
+							}
+						});
+					},
+					create: function(options) {
+						$.ajax({
+							url: '/api/cars',
+							method: 'POST',
+							data: options.data,
+							success: function(response) {
+								options.success();
+							}
+						});
+					}
+				},
+				schema: {
+					model: {
+						id: '_id',
+						fields: {
+							name: {},
+							brand: {},
+							year: {type: 'number'},
+							mileage: {type: 'number'},
+							fuelType: {},
+							engineCapacity: {type: 'number'},
+							transmission: {},
+							cost: {type: 'number'},
+							image: {},
+							pageVisits: {}
+						}
+					}
+				},
+				pageSize: 5
+			},
+			pageable: {
+				refresh: true,
+				pageSizes: true,
+				buttonCount: 5
+			},
+			toolbar: ['create', 'save', 'cancel'],
+			sortable: true,
+			reorderable: true,
+			resizable: true,
+			filterable: true,
+			columnMenu: true,
+			editable: true
+		});
+	};
+
+	let adminView = new kendo.View('adminView', { init: init, evalTemplate: true });
+	mainLayout.showIn('#content', adminView);
+});
+
+function addCar() {
+	router.navigate('/admin/create');
+}
+
+router.route('/admin/create', function() {
+	let createCarViewmodel = kendo.observable({
+		title: 'Добавить',
+		btnText: 'Добавить',
+		car: new kendo.data.DataSource({
+			transport: {
+				create: function(options) {
+					$.ajax({
+						url: '/api/cars',
+						method: 'post',
+						data: options.data,
+						success: function(response) {
+							options.success();
+						}
+					})
+				}
+			},
+			schema: {
+				model: {
+					id: '_id',
+					fields: {
+						name: {},
+						brand: {},
+						year: {type: 'number'},
+						mileage: {type: 'number'},
+						fuelType: {},
+						engineCapacity: {type: 'number'},
+						transmission: {},
+						cost: {type: 'number'},
+						image: {},
+						pageViews: {}
+					}
+				}
+			}
+		}),
+		createCar: function(e) {
+			e.preventDefault();
+			console.log(createCarViewmodel.get('car'));
+		},
+		cancel: function() {
+
+		}
+	});
+
+	let createCarView = new kendo.View('createCarView', { model: createCarViewmodel, evalTemplate: true });
+	mainLayout.showIn('#content', createCarView);
+});
+
 $(function() {
 	router.start();
 });

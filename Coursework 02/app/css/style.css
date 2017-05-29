@@ -262,3 +262,7 @@ body {
 .car-sr:active {
 	transform: translateY(2px);
 }
+
+.grid-wrapper {
+	padding: 70px 10px 10px 10px;
+}

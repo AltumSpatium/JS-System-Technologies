@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="autoApp">
+<html>
 <head>
 	<meta charset="utf-8">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -22,7 +22,7 @@
 					</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#/">Home</a></li>
-							<li><a href="#/admin">Admin</a></li>
+							<!-- <li><a href="#/admin">Admin</a></li> -->
 						</ul>
 				</div>
 			</nav>
@@ -320,6 +320,17 @@
 				<div style="clear: both;"></div>
 			</div>
 		</div>
+	</script>
+
+	<!-- Admin page -->
+	<script id="adminView" type="text/x-kendo-template">
+		<div class="grid-wrapper">
+			<div id="carGrid"></div>
+		</div>
+	</script>
+
+	<script id="img-template" type="text/x-kendo-template">
+		<img src="#: image #" alt="" width="100" height="80">
 	</script>
 
 	<script src="app/js/lib/kendoUI/jquery.min.js"></script>	

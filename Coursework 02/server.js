@@ -92,6 +92,7 @@ app.route('/api/car/:id')
 		});
 	})
 	.put(function(req, res) {
+		console.log(res.body);
 		Car.findByIdAndUpdate(req.params.id, {
 			name: req.body.name,
 			brand: req.body.brand,
@@ -102,7 +103,7 @@ app.route('/api/car/:id')
 			fuelType: req.body.fuelType,
 			transmission: req.body.transmission,
 			image: req.body.image,
-			pageVisits: 0
+			pageVisits: req.body.pageVisits
 		}, function(err, car) {
 			if (err) {
 				console.log(err);
@@ -111,6 +112,17 @@ app.route('/api/car/:id')
 				res.end();
 			}
 		});
+	})
+	.post(function(req, res) {
+		Car.findByIdAndUpdate(req.params.id, {
+		}, function(err, car) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(404);
+			} else {
+				res.end();
+			}
+		});		
 });
 
 app.get('/api/admin', function(req, res) {
@@ -122,6 +134,10 @@ app.get('/api/admin', function(req, res) {
 			res.send(cars);
 		}
 	});
+});
+
+app.post('/api/admin', function(req, res) {
+	res.end();
 });
 
 app.get('/api/search/:text*?', function(req, res) {
