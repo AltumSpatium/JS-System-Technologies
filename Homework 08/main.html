@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Main page</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.common.min.css">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.default.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="../js/lib/kendoUI/js/jquery.min.js"></script>
+		<script src="../js/lib/kendoUI/js/kendo.all.min.js"></script>
+	</head>
+	<body>
+		<div id="form-container" class="container" style="min-width: 1200px !important;">
+			<div data-template="card-template" data-bind="source: cars"></div>
+		</div>
+
+		<script id="card-template" type="text/x-kendo-template">
+			<div data-template="car-template" data-bind="source: cols" style="height: 60px; margin: 10px 60px;"></div>
+		</script>
+
+		<script id="car-template" type="text/x-kendo-template">
+			<div style="float: left; margin: 5px; width: 200px; height: 260px;" class="btn btn-default">
+				<img src="#: image #" width="180px" height="120px" alt="">
+				<p style="float: left; margin: 5px 0 0 0"><strong>#: brand # #: name #</strong></p>
+				<div style="clear: both;"></div>
+				<p style="float: left;">#: year #</p>
+				<div style="float: right; text-align: right;">
+					<p style="margin: 0">#: mileage # км</p>
+					<p style="margin: 0">#: fuelType #</p>
+					<p style="margin: 0">#: engineCapacity # см<sup>3</sup></p>
+					<p style="margin: 0">#: transmission #</p>
+					<p style="margin: 0">#: cost #$</p>
+				</div>
+			</div>
+		</script>
+
+		<script>
+			let viewmodel = kendo.observable({
+				cars: new kendo.data.DataSource({
+					transport: {
+						read: {
+							url: '/api/cars',
+						}
+					}
+				})
+			});
+
+			kendo.bind($("#form-container"), viewmodel);
+		</script>
+	</body>
+</html>

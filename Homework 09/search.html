@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Main page</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.common-bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.bootstrap.mobile.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script src="../js/lib/kendoUI/js/jquery.min.js"></script>
+		<script src="../js/lib/kendoUI/js/kendo.all.min.js"></script>
+		<style>
+			#btnFilter .btn:hover, #btnAddModel:hover {
+				background-color: #428bca !important;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Результаты поиска
+						</div>
+						<div class="panel-body">
+							<!-- There should be results rendering -->
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Фильтр
+						</div>
+						<div class="panel-body">
+							<form action="" class="form-inline">
+
+								<!-- Brand filtering -->
+								<label>Марка:</label>
+								<div class="row" style="text-align: center;">
+									<input id="brandInput"
+										   data-role="autocomplete"
+										   data-bind="value: selectedBrand,
+										   			  source: brands,
+										   			  events: {
+										   			  	change: onChange
+										   			  }"/>
+								</div>
+
+								<!-- Model filtering -->
+								<label>Модель:</label>
+								<div class="row" style="text-align: center;">
+									<div id="modelInput">
+										<input id="modelInpField"
+											   data-role="autocomplete"
+											   data-bind="value: selectedModel,
+											   			  source: models"/>
+										<button id="btnAddModel"
+												data-role="button"
+												data-icon="plus"
+												data-bind="events: { click: addModel }"
+												style="background-color: #4594d8;"></button>
+										<div data-bind="visible: isVisible">
+											<br>
+											<input data-bind="value: newModel" type="text" class="k-textbox">
+										</div>
+									</div>
+								</div>
+
+								<!-- Year filtering -->
+								<label>Год:</label>
+								<div class="row" style="text-align: center;">
+									<div id="yearInput">
+										<div data-role="rangeslider"
+											 data-min="1970"
+											 data-max="2017"
+											 data-small-step="1"
+											 data-large-step="10"
+											 data-bind="value: selectedYear"
+											 data-tooltip="{ format: '{0}' }">
+											<input/>
+											<input/>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Cost filtering -->
+								<label>Стоимость:</label>
+								<div class="row" style="text-align: center;">
+									<div id="costInput">
+										<div data-role="rangeslider"
+											 data-min="0"
+											 data-max="80000"
+											 data-bind="value: cost,
+											 			events: { change: onChangeCost }"
+											 data-tooltip="{ format: '{0:c}' }">
+											<input/>
+											<input/>
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="c0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: costFrom,
+													   			  events: {
+													   			  	change: onChangeCost,
+													   			  	spin: onChangeCost
+													   			  }"
+													   data-placeholder="От..."
+													   style="width: 100px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="c0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: costTo,
+													   			  events: {
+													   			  	change: onChangeCost,
+													   			  	spin: onChangeCost
+													   			  }"
+													   data-placeholder="До..."
+													   style="width: 100px;" />
+											</div>
+										</div>									
+									</div>
+								</div><br>
+
+								<!-- Mileage filtering -->
+								<label>Пробег (км):</label>
+								<div class="row" style="text-align: center;">
+									<div id="mileageInput">
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-bind="value: mileageFrom"
+													   data-placeholder="От..."
+													   style="width: 150px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-bind="value: mileageTo"
+													   data-placeholder="До..."
+													   style="width: 150px;" />
+											</div>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Engine capacity filtering -->
+								<label>Объем двигателя (см<sup>3</sup>):</label>
+								<div class="row" style="text-align: center;">
+									<div id="capacityInput">
+										<div class="form-group">
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: capacityFrom"
+													   data-placeholder="От..."
+													   style="width: 150px;" />
+											</div>
+											<div class="input-group">
+												<input data-role="numerictextbox"
+													   data-format="n0"
+													   data-min="0"
+													   data-max="80000"
+													   data-bind="value: capacityTo"
+													   data-placeholder="До..."
+													   style="width: 150px;" />
+											</div>
+										</div>
+									</div>
+								</div><br>
+								
+								<!-- Fuel type filtering -->
+								<label>Тип топлива:</label><br>
+								<div class="row" style="text-align: center;">
+									<div id="fuelTypeInput">
+										<div class="form-group" style="text-align: left;">
+											<input id="fuelGasoline" type="radio" name="fuelType" class="k-radio" value="Бензин" data-bind="checked: selectedFuelType">
+											<label for="fuelGasoline" class="k-radio-label"> Бензин</label><br>
+
+											<input id="fuelDiesel" type="radio" name="fuelType" class="k-radio" value="Дизель" data-bind="checked: selectedFuelType">
+											<label for="fuelDiesel" class="k-radio-label"> Дизель</label><br>
+
+											<input id="fuelElectro" type="radio" name="fuelType" class="k-radio" value="Электро" data-bind="checked: selectedFuelType">
+											<label for="fuelElectro" class="k-radio-label"> Электро</label>
+										</div>
+									</div>
+								</div><br>
+
+								<!-- Transmission filtering -->
+								<label>Трансмиссия:</label><br>
+								<div class="row" style="text-align: center;">
+									<div id="transmissionInput">
+										<div class="form-group">
+											<p><b>Механика</b> <input type="checkbox"
+												   data-role="kendo.mobile.ui.Switch"
+												   data-bind="checked: isChecked"
+												   data-on-label="А"
+												   data-off-label="М" /> <b>Автомат</b></p>
+										</div>
+									</div>
+								</div>
+
+								<div class="row" style="text-align: center;">
+									<div id="btnFilter">
+									<button data-role="button"
+											data-bind="events: { click: displayFilter}"
+											class="btn btn-primary"
+											style="background-color: #4594d8;">Показать</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			let brandsViewmodel = kendo.observable({
+				selectedBrand: null,
+				brands: new kendo.data.DataSource({
+					transport: {
+						read: {
+							url: '/api/brands'
+						}
+					}
+				}),
+				onChange: function() {
+					$("#modelInpField").data('kendoAutoComplete').dataSource.read();
+				}
+			});
+
+			let modelsViewmodel = kendo.observable({
+				selectedModel: null,
+				newModel: null,
+				models: new kendo.data.DataSource({
+					transport: {
+						read: {
+							url: function() {
+								let brand = brandsViewmodel.get("selectedBrand");
+								return '/api/models/' + brand;
+							},
+							dataType: 'json',
+							cache: false
+						}
+					}
+				}),
+				isVisible: false,
+				addModel: function(event) {
+					event.preventDefault();
+
+					if (!this.get("isVisible")) {
+						this.set("isVisible", true);
+						let icon = event.sender.element.children(".k-icon");
+						icon.removeClass("k-i-plus");
+            			icon.addClass("k-i-check");
+					} else {
+						this.set("isVisible", false);
+        				let icon = event.sender.element.children(".k-icon");
+            			icon.removeClass("k-i-check");
+            			icon.addClass("k-i-plus");
+
+            			let newModel = this.get("newModel");
+            			this.set("newModel", null);
+
+            			if (newModel) {
+            				this.get("models").data().push(newModel);
+            			}
+					}
+				}
+			});
+
+			let yearViewmodel = kendo.observable({
+				selectedYear: [null, null]
+			});
+
+			let costViewmodel = kendo.observable({
+				costFrom: null,
+				costTo: null,
+				cost: function() {
+					return [this.get('costFrom'), this.get('costTo')];
+				},
+				onChangeCost: function(event) {
+					if (event.values === undefined) {
+						this.set('cost', [this.get("costFrom"), this.get('costTo')]);
+					} else {
+						let [costFrom, costTo] = event.values;
+						this.set('costFrom', costFrom);
+						this.set('costTo', costTo);
+					}
+				}
+			});
+
+			let mileageViewmodel = kendo.observable({
+				mileageFrom: null,
+				mileageTo: null
+			});
+
+			let capacityViewmodel = kendo.observable({
+				capacityFrom: null,
+				capacityTo: null
+			});
+
+			let fuelTypeViewmodel = kendo.observable({
+				selectedFuelType: null
+			});
+
+			let transmissionViewmodel = kendo.observable({
+				isChecked: true
+			});
+
+			let buttonViewmodel = kendo.observable({
+				displayFilter: function(event) {
+					event.preventDefault();
+					let brand = brandsViewmodel.get("selectedBrand");
+					let model = modelsViewmodel.get("selectedModel");
+					let [yearFrom, yearTo] = yearViewmodel.get("selectedYear");
+					let [costFrom, costTo] = [costViewmodel.get("costFrom"), costViewmodel.get("costTo")];
+					let [mileageFrom, mileageTo] = [mileageViewmodel.get("mileageFrom"), mileageViewmodel.get("mileageTo")];
+					let [capacityFrom, capacityTo] = [capacityViewmodel.get("capacityFrom"), capacityViewmodel.get("capacityTo")];
+					let fuelType = fuelTypeViewmodel.get("selectedFuelType");
+					let transmission = transmissionViewmodel.get("isChecked") ? "Автомат" : "Механика";
+
+					let pattern = `${brand} ${model}
+						Год: ${yearFrom} - ${yearTo}
+						Цена: ${costFrom}$ - ${costTo}$
+						Пробег: ${mileageFrom} - ${mileageTo} км
+						Объем двигателя: ${capacityFrom} - ${capacityTo} см^3
+						Тип топлива: ${fuelType}
+						Трансмиссия: ${transmission}`
+
+					alert(pattern);
+				}
+			});
+
+			kendo.bind($("#brandInput"), brandsViewmodel);
+			kendo.bind($("#modelInput"), modelsViewmodel);
+			kendo.bind($("#yearInput"), yearViewmodel);
+			kendo.bind($("#costInput"), costViewmodel);
+			kendo.bind($("#mileageInput"), mileageViewmodel);
+			kendo.bind($("#capacityInput"), capacityViewmodel);
+			kendo.bind($("#fuelTypeInput"), fuelTypeViewmodel);
+			kendo.bind($("#transmissionInput"), transmissionViewmodel);
+			kendo.bind($("#btnFilter"), buttonViewmodel);
+		</script>
+	</body>
+</html>

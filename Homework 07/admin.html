@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Admin page</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.common.min.css">
+		<link rel="stylesheet" type="text/css" href="../js/lib/kendoUI/styles/kendo.default.min.css">
+		<script src="../js/lib/kendoUI/js/jquery.min.js"></script>
+		<script src="../js/lib/kendoUI/js/kendo.all.min.js"></script>
+	</head>
+	<body>
+		<div id="grid"></div>
+		<script id="transmission-template" type="text/x-kendo-template">
+			<form>
+				<input type="radio" name="transmission" #= transmission == "Автомат" ? "checked=checked" : "" #>Автомат<br>
+				<input type="radio" name="transmission" #= transmission == "Механика" ? "checked=checked" : "" #>Механика
+			</form>
+		</script>
+		<script id="img-template" type="text/x-kendo-template">
+			<img #= 'src="../img/car.jpeg"' # alt="" width="100">
+		</script>
+		<script id="fuel-template" type="text/x-kendo-template">
+			<form>
+				<input type="radio" name="fuelType" #= fuelType == "Бензин" ? "checked=checked" : "" #>Бензин<br>
+				<input type="radio" name="fuelType" #= fuelType == "Дизель" ? "checked=checked" : "" #>Дизель<br>
+				<input type="radio" name="fuelType" #= fuelType == "Электро" ? "checked=checked" : "" #>Электро
+			</form>
+		</script>
+		<script>
+			let cars = [{
+				model: "Q7",
+				brand: "Audi",
+				year: 2007,
+				mileage: 300000,
+				fuelType: "Бензин",
+				engineCapacity: 2700,
+				transmission: "Автомат",
+				cost: 50000
+			},
+			{
+				model: "Astra H",
+				brand: "Opel",
+				year: 2011,
+				mileage: 200000,
+				fuelType: "Дизель",
+				engineCapacity: 2200,
+				transmission: "Механика",
+				cost: 30000
+			},
+			{
+				model: "Astra J",
+				brand: "Opel",
+				year: 2009,
+				mileage: 250000,
+				fuelType: "Электро",
+				engineCapacity: 2200,
+				transmission: "Автомат",
+				cost: 10000
+			},
+			{
+				model: "Accent",
+				brand: "Hyundai",
+				year: 2003,
+				mileage: 200000,
+				fuelType: "Дизель",
+				engineCapacity: 3500,
+				transmission: "Автомат",
+				cost: 50000
+			},
+			{
+				model: "Passat",
+				brand: "Volkswagen",
+				year: 2010,
+				mileage: 200000,
+				fuelType: "Дизель",
+				engineCapacity: 2200,
+				transmission: "Механика",
+				cost: 40000
+			},
+			{
+				model: "306",
+				brand: "Peugeot",
+				year: 2017,
+				mileage: 300000,
+				fuelType: "Бензин",
+				engineCapacity: 2230,
+				transmission: "Автомат",
+				cost: 30000
+			},
+			{
+				model: "Focus",
+				brand: "Ford",
+				year: 2011,
+				mileage: 200000,
+				fuelType: "Бензин",
+				engineCapacity: 2200,
+				transmission: "Механика",
+				cost: 50000
+			}];
+
+			$(document).ready(function() {
+				$("#grid").kendoGrid({
+					columns: [
+						{ field: "model", title: "Модель" },
+						{ field: "brand", title: "Марка" },
+						{ field: "year", title: "Год выпуска" },
+						{ field: "mileage", title: "Пробег" },
+						{ 
+							title: "Тип топлива",
+							template: kendo.template($("#fuel-template").html())
+						},
+						{ field: "engineCapacity", title: "Объем двигателя" },
+						{ 
+							title: "Трансмиссия",
+							template: kendo.template($("#transmission-template").html())
+						},
+						{ 
+							title: "Фото",
+							sortable: false,
+							filterable: false,
+						  	template: kendo.template($("#img-template").html())
+						},
+						{ field: "cost", title: "Цена" },
+						{ command: ['edit', 'destroy'], title: '&nbsp', width: '170px'}
+					],
+
+					dataSource: {
+						data: cars,
+						pageSize: 5
+					},
+
+					pageable: {
+						refresh: true,
+						pageSizes: true,
+						buttonCount: 5
+					},
+					sortable: true,
+					reorderable: true,
+					resizable: true,
+					filterable: true,
+					columnMenu: true,
+					editable: "inline"
+				});
+			});
+		</script>
+	</body>
+</html>

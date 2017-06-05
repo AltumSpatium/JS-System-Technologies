@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="autoApp">
+<head>
+	<meta charset="utf-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.common-bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="app/css/kendoUI/kendo.bootstrap.mobile.min.css">
+		<script src="app/js/lib/kendoUI/jquery.min.js"></script>
+		<script src="app/js/lib/kendoUI/kendo.all.min.js"></script>
+</head>
+<body>
+	<div id="chart1"
+		 data-role="chart"
+		 data-title="{text: 'Car brand ratio', position: 'bottom'}"
+		 data-series-defaults="{type: 'pie'}"
+		 data-series="[{ field: 'value', categoryField: 'brand' }]"
+		 data-bind="source: brands"
+		 style="height: 300px;  width: 400px;"></div>
+
+	<div id="chart2"
+		 data-role="chart"
+		 data-title="{text: 'Transmission ratio', position: 'bottom'}"
+		 data-series="[{ field: 'value', categoryField: 'transmission' }]"
+		 data-bind="source: transmissions"
+		 style="height: 300px;  width: 400px;"></div>
+
+	<div id="chart3"
+		 data-role="chart"
+		 data-title="{text: 'Cost ratio', position: 'bottom'}"
+		 data-series-defaults="{type: 'line'}"
+		 data-series="[{ field: 'value', categoryField: 'brand' }]"
+		 data-bind="source: costs"
+		 style="height: 300px; width: 700px;"></div>
+
+	<div id="chart4"
+		 data-role="chart"
+		 data-title="{text: 'Fuel type ratio', position: 'bottom'}"
+		 data-series-defaults="{type: 'funnel'}"
+		 data-series="[{ field: 'value', categoryField: 'fuel' }]"
+		 data-bind="source: fuels"
+		 style="height: 300px; width: 400px;"></div>
+
+	<script type="text/javascript">
+		let viewmodel = kendo.observable({
+			brands: new kendo.data.DataSource({
+				transport: {
+					read: {
+						url: '/api/brands'
+					}
+				}
+			})
+		});
+
+		let viewmodel2 = kendo.observable({
+			transmissions: new kendo.data.DataSource({
+				transport: {
+					read: {
+						url: '/api/trs'
+					}
+				}
+			})
+		});
+
+		let viewmodel3 = kendo.observable({
+			costs: new kendo.data.DataSource({
+				transport: {
+					read: {
+						url: '/api/costs'
+					}
+				}
+			})
+		});
+
+		let viewmodel4 = kendo.observable({
+			fuels: new kendo.data.DataSource({
+				transport: {
+					read: {
+						url: '/api/fuels'
+					}
+				}
+			})
+		});
+
+		kendo.bind($("#chart1"), viewmodel);
+		kendo.bind($("#chart2"), viewmodel2);
+		kendo.bind($('#chart3'), viewmodel3);
+		kendo.bind($('#chart4'), viewmodel4);
+	</script>
+</body>
+</html>
