@@ -77,10 +77,13 @@ body {
 
 .card-wrapper {
 	height: 60px;
-	margin: 10px 60px;
+	width: 1050px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .card {
+	padding: 0px;
 	background-color: rgba(3, 155, 229, 0.8);
 	border-color: rgba(3, 155, 229, 0.3);
 	float: left;
@@ -88,7 +91,7 @@ body {
 	margin: 5px;
 	width: 200px;
 	height: 260px;
-	border-width: 1px;
+	border-width: 0px;
 	border-radius: 0;
 	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);
 }
@@ -105,22 +108,28 @@ body {
 	transform: translateY(3px);
 }
 
+.card img {
+	width: 200px;
+	height: 135px;
+}
+
 .card-info {
 	float: right;
 	text-align: right;
 }
 
 .card-info p {
-	margin: 0;
+	margin: 0 5px 0 0;
 }
 
 .card-info-name {
 	float: left;
-	margin: 5px 0 0 0;
+	margin: 3px 0 0 5px;
 }
 
 .card-info-year {
 	float: left;
+	margin-left: 5px;
 }
 
 .clear {
