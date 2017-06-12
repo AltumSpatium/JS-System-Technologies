@@ -53,8 +53,6 @@ export default class SearchPage extends Component {
 	}
 
 	render() {
-		const values = Object.assign({}, this.state);
-
 		return (
 			<div className="container search-container">
 				<div className="row">
@@ -62,7 +60,7 @@ export default class SearchPage extends Component {
 						<SearchResultsPanel />
 					</div>
 					<div className="col-md-4">
-						<FilterPanel values={values} onChange={(e) => this.handleChange(e)}
+						<FilterPanel values={this.state} onChange={(e) => this.handleChange(e)}
 							onFilterClick={(e) => this.handleFilter(e)}/>
 					</div>
 				</div>
