@@ -1,0 +1,23 @@
+{
+  "name": "auto-app",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001/",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.8"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start-b": "nodemon server.js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
