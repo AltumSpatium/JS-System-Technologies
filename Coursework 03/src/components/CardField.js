@@ -11,6 +11,7 @@ export default class CardField extends Component {
 	}
 
 	loadCars() {
+		// TODO loading from server
 		const cars = [];
 		for (let i = 0; i < 35; i++) {
 			cars.push(JSON.parse(localStorage.getItem('car' + i)));

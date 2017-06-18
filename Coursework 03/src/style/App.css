@@ -1,9 +1,9 @@
 .navbar-main {
 	background-color: #2196f3 !important;
-	position: fixed !important;;
-	width: 100% !important;;
+	position: fixed !important;
+	width: 100%;
 	z-index: 99 !important;;
-	border-radius: 0 !important;;
+	border-radius: 0 !important;
 	border: none !important;;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
