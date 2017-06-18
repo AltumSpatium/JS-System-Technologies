@@ -1,0 +1,54 @@
+.card {
+	cursor: pointer;
+	padding: 0px !important;
+	background-color: rgba(3, 155, 229, 0.8);
+	border-color: rgba(3, 155, 229, 0.3);
+	float: left;
+	color: white;
+	margin: 5px;
+	width: 200px;
+	height: 260px;
+	border-width: 0px !important;
+	border-radius: 0 !important;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.card:hover {
+	background-color: rgba(3, 155, 229, 1);
+	border-color: rgba(3, 155, 229, 0.3);
+	color: white !important;
+	transition: 0.1s ease-in-out;
+}
+
+.card:active {
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35) !important;
+	transform: translateY(3px);
+}
+
+.card img {
+	width: 200px;
+	height: 135px;
+}
+
+.card-info {
+	float: right;
+	text-align: right;
+}
+
+.card-info p {
+	margin: 0 5px 0 0;
+}
+
+.card-info-name {
+	float: left;
+	margin: 3px 0 0 5px;
+}
+
+.card-info-year {
+	float: left;
+	margin-left: 5px;
+}
+
+.clear {
+	clear: both;
+}
