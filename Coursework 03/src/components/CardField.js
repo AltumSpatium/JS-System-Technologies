@@ -6,30 +6,32 @@ export default class CardField extends Component {
 	constructor() {
 		super();
 		this.state = {
-			cars: this.loadCars()
-		}
+			cars: null
+		};
 	}
 
 	loadCars() {
-		// TODO loading from server
-		const cars = [];
-		for (let i = 0; i < 35; i++) {
-			cars.push(JSON.parse(localStorage.getItem('car' + i)));
-		}
+		fetch('/api/cars')
+			.then(response => response.json())
+			.then(json => this.setState({cars: json}))
+			.catch(error => console.log(error));	
+	}
 
-		return cars;		
+	componentDidMount() {
+		this.loadCars();
 	}
 
 	render() {
+		if (!this.state.cars) return null;
 		const cars = this.state.cars.slice();
 
 		return (
 			<div className="row-wrapper">
-				<CardRow cars={cars.slice(0, 5)}/>
-				<CardRow cars={cars.slice(5, 10)}/>
-				<CardRow cars={cars.slice(10, 15)}/>
-				<CardRow cars={cars.slice(15, 20)}/>
-				<CardRow cars={cars.slice(20, 25)}/>
+				<CardRow cars={cars[0].cols}/>
+				<CardRow cars={cars[1].cols}/>
+				<CardRow cars={cars[2].cols}/>
+				<CardRow cars={cars[3].cols}/>
+				<CardRow cars={cars[4].cols}/>
 			</div>
 		)
 	}

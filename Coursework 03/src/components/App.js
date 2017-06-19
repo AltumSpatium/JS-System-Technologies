@@ -10,7 +10,7 @@ export default class App extends Component {
 					<nav className="navbar navbar-default navbar-main">
 						<div className="container">
 							<div className="navbar-header">
-								<a className="navbar-brand" href="#/">AutoApp</a>
+								<Link className="navbar-brand" to="/">AutoApp</Link>
 							</div>
 								<ul className="nav navbar-nav navbar-right">
 									<li><Link to="/">Home</Link></li>

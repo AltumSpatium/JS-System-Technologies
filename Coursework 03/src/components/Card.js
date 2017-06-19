@@ -13,7 +13,7 @@ export default class Card extends Component {
 		e.preventDefault();
 
 		const car = this.props.car;
-		const id = car.id || '';
+		const id = car._id || '';
 		if (id)
 			this.context.router.history.push(`/car/${id}`);
 	}

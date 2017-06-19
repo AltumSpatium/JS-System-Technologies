@@ -1,0 +1,16 @@
+.error {
+	padding-top: 200px;
+}
+
+.error-not-found {
+	width: 500px;
+	height: 150px;
+	background-color: rgba(200, 200, 200, 0.25);
+	border: 3px dashed red;
+	color: red;
+	margin: auto;
+	text-align: center;
+	padding: 40px;
+	font-variant: small-caps;
+	font-size: 40px;
+}
