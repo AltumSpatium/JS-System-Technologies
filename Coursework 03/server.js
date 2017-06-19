@@ -17,8 +17,8 @@ app.use(jsonParser);
 app.use(urlencodedParser);
 
 app.route('/api/cars')
-	.get(function(req, res) {
-		Car.find({}).sort('-pageVisits').limit(25).exec(function(err, cars) {
+	.get((req, res) => {
+		Car.find({}).sort('-pageVisits').limit(25).exec((err, cars) => {
 			if (err) {
 				console.log(err);
 				res.sendStatus(400);
@@ -27,28 +27,17 @@ app.route('/api/cars')
 			res.send(chunkify(cars, 5));
 		});
 	})
-	.post(function(req, res) {
+	.post((req, res) => {
 		if (!req.body) res.sendStatus(400);
 
-		let car = new Car({
-			name: req.body.name,
-			brand: req.body.brand,
-			cost: req.body.cost,
-			year: req.body.year,
-			mileage: req.body.mileage,
-			engineCapacity: req.body.engineCapacity,
-			fuelType: req.body.fuelType,
-			transmission: req.body.transmission,
-			image: req.body.image,
-			pageVisits: 0
-		});
+		let car = new Car(Object.assign({}, req.body, {pageVisits: 0}));
 		car.save();
 
 		res.end();
 });
 
-app.get('/api/brands', function(req, res) {
-	Car.find({}).distinct("brand").exec(function(err, brands) {
+app.get('/api/brands', (req, res) => {
+	Car.find({}).distinct("brand").exec((err, brands) => {
 		if (err) {
 			console.log(err);
 			res.sendStatus(400);
@@ -58,9 +47,9 @@ app.get('/api/brands', function(req, res) {
 	});
 });
 
-app.get('/api/models/:brand', function(req, res) {
+app.get('/api/models/:brand', (req, res) => {
 	Car.find({brand: new RegExp('^' + req.params.brand.toLowerCase(), "i")})
-	   .distinct("name").exec(function(err, models) {
+	   .distinct("name").exec((err, models) => {
 		if (err) {
 			console.log(err);
 			res.sendStatus(400);
@@ -71,8 +60,8 @@ app.get('/api/models/:brand', function(req, res) {
 });
 
 app.route('/api/car/:id')
-	.get(function(req, res) {
-		Car.findByIdAndUpdate(req.params.id, {$inc: {pageVisits: 1}}, function(err, car) {
+	.get((req, res) => {
+		Car.findByIdAndUpdate(req.params.id, {$inc: {pageVisits: 1}}, (err, car) => {
 			if (err) {
 				console.log(err);
 				res.sendStatus(404);
@@ -81,8 +70,8 @@ app.route('/api/car/:id')
 			}
 		});
 	})
-	.delete(function(req, res) {
-		Car.findByIdAndRemove(req.params.id, function(err, car) {
+	.delete((req, res) => {
+		Car.findByIdAndRemove(req.params.id, (err, car) => {
 			if (err) {
 				console.log(err);
 				res.sendStatus(404);
@@ -91,20 +80,10 @@ app.route('/api/car/:id')
 			}
 		});
 	})
-	.put(function(req, res) {
+	.put((req, res) => {
 		console.log(res.body);
-		Car.findByIdAndUpdate(req.params.id, {
-			name: req.body.name,
-			brand: req.body.brand,
-			cost: req.body.cost,
-			year: req.body.year,
-			mileage: req.body.mileage,
-			engineCapacity: req.body.engineCapacity,
-			fuelType: req.body.fuelType,
-			transmission: req.body.transmission,
-			image: req.body.image,
-			pageVisits: req.body.pageVisits
-		}, function(err, car) {
+		Car.findByIdAndUpdate(req.params.id,
+			Object.assign({}, req.body), (err, car) => {
 			if (err) {
 				console.log(err);
 				res.sendStatus(404);
@@ -113,9 +92,9 @@ app.route('/api/car/:id')
 			}
 		});
 	})
-	.post(function(req, res) {
+	.post((req, res) => {
 		Car.findByIdAndUpdate(req.params.id, {
-		}, function(err, car) {
+		}, (err, car) => {
 			if (err) {
 				console.log(err);
 				res.sendStatus(404);
@@ -125,8 +104,8 @@ app.route('/api/car/:id')
 		});		
 });
 
-app.get('/api/admin', function(req, res) {
-	Car.find({}, function(err, cars) {
+app.get('/api/admin', (req, res) => {
+	Car.find({}, (err, cars) => {
 		if (err) {
 			console.log(err);
 			res.sendStatus(400);
@@ -136,11 +115,7 @@ app.get('/api/admin', function(req, res) {
 	});
 });
 
-app.post('/api/admin', function(req, res) {
-	res.end();
-});
-
-app.get('/api/search/:text*?', function(req, res) {
+app.get('/api/search/:text*?', (req, res) => {
 	let query;
 	let brand = req.query.brand;
 	let model = req.query.model;
@@ -185,10 +160,9 @@ app.get('/api/search/:text*?', function(req, res) {
 	if (req.query.transmission)
 		query = query.where('transmission').equals(req.query.transmission);
 
-	query.sort('-pageVisits').exec(function(err, cars) {
+	query.sort('-pageVisits').exec((err, cars) => {
 		if (err) {
 			console.log(err);
-			console.log('error');
 			res.sendStatus(400);
 		} else {
 			res.send(cars);

@@ -1,0 +1,110 @@
+.car-table {
+	padding-top: 60px;
+}
+
+.table {
+	margin-top: -45px !important;
+	width: 90% !important;
+	margin: auto;
+	empty-cells: show !important;
+	margin-left: 5% !important;
+}
+
+.no-border {
+	border: none !important;
+	width: 125px;
+	height: 80px;
+	color: white;
+
+}
+
+.btns {
+	opacity: 0;
+	padding: 5px;
+}
+
+.btns button {
+	margin: 5px;
+	width: 80px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+	border-width: 0;
+	background-color: #0288d1;
+	transition: background-color .3s;
+}
+
+.btns button:focus {
+	outline: none;
+}
+
+.btns button:hover {
+	background-color: #0277bd;
+}
+
+.btns button:active {
+	transform: translateY(1px);
+}
+
+.btn-add {
+	margin-right: 20px;
+	float: right;
+	width: 80px;
+	height: 30px;
+	color: white;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+	border-width: 0;
+	background-color: #00c853;
+	font-weight: bold;
+	transition: background-color .2s;
+}
+
+.btn-add:hover {
+	background-color: #4CAF50;
+}
+
+.btn-add:focus {
+	outline: none;
+}
+
+.btn-add:active {
+	transform: translateY(1px);
+}
+
+.tr:hover {
+	background-color: #1e88e5;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.08s ease-in-out;
+}
+
+tr:hover .no-border {
+	background-color: #e3f2fd;
+}
+
+tr:hover .btns {
+	opacity: 100;
+}
+
+.reactable-page-button, .reactable-previous-page, .reactable-next-page {
+	text-decoration: none !important;
+	background-color: #0288d1;
+	color: white;
+	font-size: 20px;
+	margin: 1px;
+	padding: 5px;
+
+}
+
+.reactable-pagination {
+	text-align: center;
+}
+
+.reactable-current-page {
+	background-color: #01579B;
+	color: white !important;
+	font-weight: bolder;
+}
+
+.reactable-page-button:hover {
+	color: white;
+	background-color: #0277bd;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
 import '../style/SearchField.css'
 
 export default class SearchField extends Component {

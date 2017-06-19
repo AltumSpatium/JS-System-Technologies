@@ -1,4 +1,5 @@
 import React from 'react'
+
 import '../style/NotFound.css'
 
 export default function NotFound(props) {

@@ -1,25 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Card from './Card'
+
 import '../style/CardRow.css'
 
-export default class CardRow extends Component {
-	renderCard(car) {
-		return <Card car={car}/>;
-	}
+export default function CardRow(props) {
+	const cars = props.cars;
 
-	render() {
-		const cars = this.props.cars;
-		return (
-			<div className="card-wrapper">
-				<div>
-					{this.renderCard(cars[0])}
-					{this.renderCard(cars[1])}
-					{this.renderCard(cars[2])}
-					{this.renderCard(cars[3])}
-					{this.renderCard(cars[4])}
-					<div style={{clear: 'both'}}></div>
-				</div>
+	return (
+		<div className="card-wrapper">
+			<div>
+				{cars.map((car, index) => 
+					<Card key={index} car={car} />
+				)}
+				<div style={{clear: 'both'}}></div>
 			</div>
-		);
-	}
+		</div>
+	);
 }

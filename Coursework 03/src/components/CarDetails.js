@@ -1,33 +1,33 @@
 import React, { Component } from 'react'
 import NotFound from './NotFound'
+
 import '../style/CarDetails.css'
 
 export default class CarDetails extends Component {
-	constructor(props) {
-		super(props);
-		
+	constructor() {
+		super();
 		this.state = {
-			car: null
+			car: null,
+			loaded: true
 		};
 	}
 
 	componentDidMount() {
 		const id = this.props.match.params.id
-		if (id) {
-			this.loadCar(id);
-		}
+		if (id) this.loadCar(id);
 	}
 
 	loadCar(id) {
 		fetch(`/api/car/${id}`)
 			.then(response => response.json())
 			.then(json => this.setState({car: json}))
-			.catch(error => console.log(error));
+			.catch(error => this.setState({loaded: false, car: []}));
 	}
 
 	render() {
 		const car = this.state.car;
-		if (!car) return <NotFound />;
+		if (!car) return null;
+		if (!this.state.loaded) return <NotFound />
 
 		return (
 			<div className="car-card">

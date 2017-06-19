@@ -1,0 +1,53 @@
+.field {
+	padding-top: 70px;
+	width: 60% !important;
+}
+
+.btn-container {
+	width: 60% !important;
+	text-align: center;
+}
+
+.btn-container * {
+	margin: 5px;
+}
+
+.btn-warning, .btn-success, .btn-file {
+	width: 100px !important;
+	height: 30px !important;
+	color: white !important;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+	border: none !important;
+	border-radius: 0 !important;
+	font-weight: bold !important;
+	text-align: center;
+	transition: background-color .2s;
+}
+
+.btn-warning:focus, .btn-success:focus {
+	outline: none !important;
+}
+
+.btn-warning:active, .btn-success:active {
+	transform: translateY(1px);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+}
+
+.panel {
+	border-color:  #4286f4 !important;
+}
+
+.panel-heading {
+	background-color: #4286f4 !important;
+	font-weight: bold;
+}
+
+.btn-file {
+	width: 150px !important;
+	background-color: #42A5F5 !important;	
+}
+
+.btn-file:hover {
+	background-color: #1E88E5 !important;
+	transition: background-color .2s;
+}
