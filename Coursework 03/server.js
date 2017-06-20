@@ -81,7 +81,6 @@ app.route('/api/car/:id')
 		});
 	})
 	.put((req, res) => {
-		console.log(res.body);
 		Car.findByIdAndUpdate(req.params.id,
 			Object.assign({}, req.body), (err, car) => {
 			if (err) {

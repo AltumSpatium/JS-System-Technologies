@@ -16,28 +16,14 @@ export default class CarForm extends Component {
 
 		this.handleClick = this.handleClick.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleImageLoading = this.handleImageLoading.bind(this);
 		this.execQuery = this.execQuery.bind(this);
 	}
 
 	loadCar(id) {
-		const urlToFile = (url, filename, mimeType) => {
-			return (fetch(url)
-					.then(response => response.arrayBuffer())
-					.then(buf => new File([buf], filename, {type: mimeType}))
-			);
-		};
-
 		fetch(`/api/car/${id}`)
 			.then(response => response.json())
-			.then(json => {
-				const car = Object.assign({}, json);
-				urlToFile(car.image, 'file.jpeg', 'image/jpeg')
-					.then(file => {
-						// TODO add loading to input of type file
-						document.getElementById('imageFile').files[0] = file;
-						this.setState({car: car, isEditing: true});
-					});
-			})
+			.then(json => this.setState({car: json, isEditing: true}))
 			.catch(error => { console.log(error) });
 	}
 
@@ -55,26 +41,31 @@ export default class CarForm extends Component {
 		this.setState({car: car});
 	}
 
+	handleImageLoading(e) {
+		const image = document.getElementById('imageFile').files[0];
+		if (!image || !this.state.car) return;
+
+		const car = Object.assign({}, this.state.car);
+		let fileReader = new FileReader();
+		fileReader.onloadend = (e) => {
+			let data = e.target.result;
+			car.image = data;
+			this.setState({car: car});
+		}
+
+		fileReader.readAsDataURL(image);
+	}
+
 	handleClick(e) {
 		e.preventDefault();
 
 		const car = this.state.car;
-		const image = document.getElementById('imageFile').files[0];
-		if (!image || !car) return;
+		if (!car) return;
 
-		let fileReader = new FileReader();
-
-		fileReader.onloadend = (e) => {
-			let data = e.target.result;
-			car.image = data;
-
-			if (!this.state.isEditing)
-				this.execQuery('/api/cars', 'POST', car);
-			else
-				this.execQuery(`/api/car/${car._id}`, 'UPDATE', car);
-		}
-
-		fileReader.readAsDataURL(image);
+		if (!this.state.isEditing)
+			this.execQuery('/api/cars', 'POST', car);
+		else
+			this.execQuery(`/api/car/${car._id}`, 'PUT', car);
 	}
 
 	execQuery(url, method, data) {
@@ -166,9 +157,9 @@ export default class CarForm extends Component {
 								</div>
 								<div className="form-group">
 									<label className="btn btn-default btn-file">
-										Выбрать фото <input id="imageFile" type="file" style={{display: "none"}}
+										Выбрать фото <input id="imageFile" type="file" style={{display: 'none'}}
 															name="image"
-															onChange={(e) => this.handleChange(e)} />
+															onChange={(e) => this.handleImageLoading(e)} />
 									</label>
 								</div>
 								<div className="container btn-container">
