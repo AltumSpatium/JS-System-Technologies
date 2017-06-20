@@ -1,0 +1,31 @@
+#btnFilter {
+	margin-top: 10px;
+}
+
+#btnFilter button {
+	width: 100px;
+	height: 30px;
+	font-weight: bold;
+	background-color: #4594d8;
+	color: white;
+	border-radius: 0;
+	border: none;
+	box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25), 1px 2px 4px rgba(0, 0, 0, 0.35);	
+}
+
+#btnFilter button:hover {
+	background-color: #4574d8;
+	transition: 0.2s ease-in-out;
+}
+
+#btnFilter button:focus {
+	outline: none;
+}
+
+#btnFilter button:active {
+	transform: translateY(1px);
+}
+
+.panel-body .row {
+	margin-bottom: 20px;
+}

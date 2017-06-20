@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import SearchResultsPanel from './SearchResultsPanel'
 import FilterPanel from './FilterPanel'
+import queryString from 'query-string'
 
 import '../style/SearchPage.css'
 
@@ -21,11 +23,30 @@ export default class SearchPage extends Component {
 			capacityTo: "",
 			fuelType: "",
 			transmission: "",
-			cars: []
+			cars: [],
+			loaded: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
+		this.loadCars = this.loadCars.bind(this);
+	}
+
+	componentDidMount() {
+		const searchText = this.props.match.params.text;
+		const queryParams = this.props.location.search;
+		this.loadCars(`/api/search/${searchText}${queryParams}`);
+	}
+
+	loadCars(url) {
+		fetch(url)
+			.then(response => response.json())
+			.then(json => this.setState({cars: json, loaded: true}));
+	}
+
+	buildQuery() {
+
 	}
 
 	handleChange(e) {
@@ -36,6 +57,10 @@ export default class SearchPage extends Component {
 		this.setState({
 			[name]: value
 		});
+	}
+
+	handleClick(id) {
+		this.context.router.history.push(`/car/${id}`);
 	}
 
 	handleFilter(e) {
@@ -55,11 +80,13 @@ export default class SearchPage extends Component {
 	}
 
 	render() {
+		const cars = this.state.cars.slice();
+
 		return (
 			<div className="container search-container">
 				<div className="row">
 					<div className="col-lg-8">
-						<SearchResultsPanel />
+						<SearchResultsPanel cars={cars} onClick={id => this.handleClick(id)} loaded={this.state.loaded} />
 					</div>
 					<div className="col-md-4">
 						<FilterPanel values={this.state} onChange={e => this.handleChange(e)}
@@ -70,3 +97,7 @@ export default class SearchPage extends Component {
 		);
 	}
 }
+
+SearchPage.contextTypes = {
+	router: PropTypes.object.isRequired
+};

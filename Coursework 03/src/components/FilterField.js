@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../style/FilterField.css'
+
 export default function FilterField(props) {
 	return (
 		<div>

@@ -1,12 +1,14 @@
-import React from 'react';
+input {
+	width: 80%;
+	border: none;
+	padding: 5px;
+	border-bottom: solid 2px #c9c9c9;
+	transition: border 0.3s;
+	vertical-align: middle;
+	font-size: 1.7vw;
+}
 
-export default function FilterField(props) {
-	return (
-		<div>
-			<label>{props.labelText}</label>
-			<div className="row" style={{"textAlign": "center"}}>
-				<input value={props.value} onChange={props.onChange} name={props.name} />
-			</div>
-		</div>
-	);
+input:focus {
+	border-bottom: solid 2px #2196f3;
+	outline: none;
 }

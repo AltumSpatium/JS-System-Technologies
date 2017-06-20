@@ -1,3 +1,11 @@
 .search-container {
 	padding-top: 70px;
 }
+
+.panel-primary .panel-heading {
+	background-color: #1976d2 !important;
+}
+
+input:focus {
+	outline: none;
+} 
