@@ -127,6 +127,7 @@ export default class CarForm extends Component {
 										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
+									<label>Тип топлива:</label>
 									<Select
 										placeholder="Выберите тип топлива..."
 										name="fuelType"
@@ -142,6 +143,7 @@ export default class CarForm extends Component {
 									</Select>
 								</div>
 								<div className="form-group">
+									<label>Трансмиссия:</label>
 									<Select
 										placeholder="Выберите тип трансмиссии..."
 										name="transmission"

@@ -29,10 +29,10 @@ export default function FilterPanel(props) {
 						min={0} max={80000} tooltipStyle="$" labelText="Стоимость:" />
 					<FilterFieldRange value={{from: values.mileageFrom, to: values.mileageTo}} 
 						onChange={e => onChange(e)} name={{from: 'mileageFrom', to: 'mileageTo'}}
-						min={0} max={1000000} tooltipStyle=" км" labelText="Пробег:" />
+						min={0} max={350000} tooltipStyle=" км" labelText="Пробег:" />
 					<FilterFieldRange value={{from: values.capacityFrom, to: values.capacityTo}} 
 						onChange={e => onChange(e)} name={{from: 'capacityFrom', to: 'capacityTo'}}
-						min={0} max={60000} tooltipStyle=" см^3" labelText="Объём двигателя:" />
+						min={0} max={45000} tooltipStyle=" см^3" labelText="Объём двигателя:" />
 					<FilterFieldSelect value={values.fuelType} labelText="Тип топлива:"
 						placeholder="Выберите тип топлива..." name="fuelType"
 						options={['Бензин', 'Дизель', 'Электро']}

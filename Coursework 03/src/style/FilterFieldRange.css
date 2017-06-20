@@ -2,3 +2,8 @@
 	width: 85% !important;
 	margin: auto;
 }
+
+.rc-slider-mark-text {
+	width: 20% !important;
+	margin-left: -10% !important;
+}

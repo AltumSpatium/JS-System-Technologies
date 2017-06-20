@@ -118,7 +118,7 @@ app.get('/api/search/:text*?', (req, res) => {
 	let query;
 	let brand = req.query.brand;
 	let model = req.query.model;
-	console.log(req.params.text);
+	console.log(req.params.brand);
 
 	if (brand || model) {
 		query = Car.find({});

@@ -36,17 +36,24 @@ export default class SearchPage extends Component {
 	componentDidMount() {
 		const searchText = this.props.match.params.text;
 		const queryParams = this.props.location.search;
-		this.loadCars(`/api/search/${searchText}${queryParams}`);
+		this.loadCars(this.buildQuery(searchText, queryParams));
 	}
 
 	loadCars(url) {
 		fetch(url)
 			.then(response => response.json())
-			.then(json => this.setState({cars: json, loaded: true}));
+			.then(json => {
+				this.setState(
+					Object.assign({cars: json, loaded: true}, queryString.parse(this.props.location.search))
+				);
+			});
 	}
 
-	buildQuery() {
-
+	buildQuery(text, params) {
+		text = text || '';
+		const filterParams = queryString.parse(params);
+		const query = text && filterParams.brand ? '' : text;
+		return `/api/search/${query}${params}`;
 	}
 
 	handleChange(e) {
@@ -65,18 +72,18 @@ export default class SearchPage extends Component {
 
 	handleFilter(e) {
 		e.preventDefault();
-		const {brand, model, yearFrom, yearTo, costFrom, costTo,
-			mileageFrom, mileageTo, capacityFrom, capacityTo, fuelType, transmission} = this.state;
+		
+		const searchText = this.props.match.params.text || '';
+		const queryParams = {};
+		Object.keys(this.state).forEach(key => {
+			if (this.state[key] && key !== 'loaded' && key !== 'cars')
+				queryParams[key] = this.state[key]
+		});
+		const query = queryString.stringify(queryParams);
 
-		let pattern = `${brand} ${model}
-			Год: ${yearFrom} - ${yearTo}
-			Цена: ${costFrom}$ - ${costTo}$
-			Пробег: ${mileageFrom} - ${mileageTo} км
-			Объем двигателя: ${capacityFrom} - ${capacityTo} см^3
-			Тип топлива: ${fuelType}
-			Трансмиссия: ${transmission}`
-
-		alert(pattern);
+		this.context.router.history.push(`/search/${searchText}?${query}`);
+		this.setState({loaded: false});
+		this.loadCars(`/api/search/${searchText}?${query}`);
 	}
 
 	render() {

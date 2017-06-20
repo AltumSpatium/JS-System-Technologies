@@ -30,7 +30,7 @@ ReactDOM.render(
 				<Route path='/admin' component={Admin} />
 
 				<Route path='/search/:text' component={SearchPage} />
-				<Redirect from='/search/' to='/search/ ' />
+				<Route path='/search/' component={SearchPage} />
 				
 				<Route component={NotFound} />
 			</Switch>
