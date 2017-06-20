@@ -34,7 +34,7 @@ export default class Card extends Component {
 		const image = car.image || '';
 
 		return (
-			<div className="card btn" onClick={(e) => this.handleClick(e)}>
+			<div className="card btn" onClick={e => this.handleClick(e)}>
 				<img src={image} width="180px" height="120px" alt="" />
 				<p className="card-info-name"><strong>{brand} {name}</strong></p>
 				<div className="clear"></div>

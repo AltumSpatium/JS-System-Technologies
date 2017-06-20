@@ -47,7 +47,7 @@ export default class CarForm extends Component {
 
 		const car = Object.assign({}, this.state.car);
 		let fileReader = new FileReader();
-		fileReader.onloadend = (e) => {
+		fileReader.onloadend = e => {
 			let data = e.target.result;
 			car.image = data;
 			this.setState({car: car});
@@ -94,37 +94,37 @@ export default class CarForm extends Component {
 									<label htmlFor="name">Модель:</label>
 									<input type="text" className="form-control" id="name"
 										   name="name" value={car.name}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<label htmlFor="brand">Марка:</label>
 									<input type="text" className="form-control" id="brand"
 										   name="brand" value={car.brand}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<label htmlFor="year">Год выпуска:</label>
 									<input type="number" className="form-control" id="year"
 										   name="year" value={car.year}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<label htmlFor="cost">Стоимость:</label>
 									<input type="number" className="form-control" id="cost" min="0"
 										   name="cost" value={car.cost}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<label htmlFor="mileage">Пробег:</label>
 									<input type="number" className="form-control" id="mileage" min="0"
 										   name="mileage" value={car.mileage}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<label htmlFor="capacity">Объем двигателя:</label>
 									<input type="number" className="form-control" id="capacity" min="0"
 										   name="engineCapacity" value={car.engineCapacity}
-										   onChange={(e) => this.handleChange(e)} />
+										   onChange={e => this.handleChange(e)} />
 								</div>
 								<div className="form-group">
 									<Select
@@ -136,7 +136,7 @@ export default class CarForm extends Component {
 											{ value: 'Дизель', label: 'Дизель'},
 											{ value: 'Электро', label: 'Электро'}
 										]}
-										onChange={(e) => this.handleChange(
+										onChange={e => this.handleChange(
 											{ target: {name: 'fuelType', value: e ? e.value : null} }
 										)}>
 									</Select>
@@ -150,7 +150,7 @@ export default class CarForm extends Component {
 											{ value: 'Автомат', label: 'Автомат'},
 											{ value: 'Механика', label: 'Механика'},
 										]}
-										onChange={(e) => this.handleChange(
+										onChange={e => this.handleChange(
 											{ target: {name: 'transmission', value: e ? e.value : null} }
 										)}>
 									</Select>
@@ -159,14 +159,14 @@ export default class CarForm extends Component {
 									<label className="btn btn-default btn-file">
 										Выбрать фото <input id="imageFile" type="file" style={{display: 'none'}}
 															name="image"
-															onChange={(e) => this.handleImageLoading(e)} />
+															onChange={e => this.handleImageLoading(e)} />
 									</label>
 								</div>
 								<div className="container btn-container">
 									<Link to="/admin" className="btn btn-warning">Отмена</Link>
 									<button
 										className="btn btn-success"
-										onClick={(e) => this.handleClick(e)}>
+										onClick={e => this.handleClick(e)}>
 										{title}
 									</button>
 								</div>

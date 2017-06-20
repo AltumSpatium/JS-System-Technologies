@@ -38,8 +38,8 @@ export default class SearchField extends Component {
 					<p><span>Поиск: </span> <input 
 												value={this.state.search}
 												name='search'
-												onChange={(e) => this.handleChange(e)} />
-					<button onClick={(e) => this.handleClick(e)}>Искать</button></p>
+												onChange={e => this.handleChange(e)} />
+					<button onClick={e => this.handleClick(e)}>Искать</button></p>
 				</div>
 			</div>
 		);

@@ -6,6 +6,7 @@ import Admin from './components/Admin'
 import Home from './components/Home'
 import CarDetails from './components/CarDetails'
 import CarForm from './components/CarForm'
+import SearchPage from './components/SearchPage'
 import NotFound from './components/NotFound'
 
 import { Route, Switch, Redirect } from 'react-router'
@@ -27,6 +28,9 @@ ReactDOM.render(
 				<Route path='/admin/edit/:id' component={CarForm} />
 				<Redirect from='/admin/edit' to='/admin' />
 				<Route path='/admin' component={Admin} />
+
+				<Route path='/search/:text' component={SearchPage} />
+				<Redirect from='/search/' to='/search/ ' />
 				
 				<Route component={NotFound} />
 			</Switch>
