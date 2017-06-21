@@ -82,7 +82,6 @@ export default class SearchPage extends Component {
 		const query = queryString.stringify(queryParams);
 
 		this.context.router.history.push(`/search/${searchText}?${query}`);
-		this.setState({loaded: false});
 		this.loadCars(`/api/search/${searchText}?${query}`);
 	}
 
