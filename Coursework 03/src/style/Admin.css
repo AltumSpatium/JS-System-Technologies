@@ -80,6 +80,7 @@ tr:hover .no-border {
 }
 
 tr:hover .btns {
+	transition: opacity .8s;
 	opacity: 100;
 }
 

@@ -41,11 +41,14 @@ export default class Admin extends Component {
 		fetch(`/api/car/${id}`, {
 			method: 'DELETE'
 		})
+		.then(response => {
+			if (response.status === 200) {
+				const cars = this.state.cars.slice();
+				cars.splice(index, 1);
+				this.setState({cars: cars});
+			}
+		})
 		.catch(error => console.log(error));
-
-		const cars = this.state.cars.slice();
-		cars.splice(index, 1);
-		this.setState({cars: cars});
 	}
 
 	render() {

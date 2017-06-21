@@ -15,7 +15,6 @@ export default class App extends Component {
 							</div>
 								<ul className="nav navbar-nav navbar-right">
 									<li><Link to="/">Home</Link></li>
-									<li><Link to="/admin">Admin</Link></li>
 								</ul>
 						</div>
 					</nav>
